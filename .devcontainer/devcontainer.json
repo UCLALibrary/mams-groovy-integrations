@@ -1,0 +1,15 @@
+{
+	"name": "MAMS Groovy Integrations",
+	"build": {
+		"dockerfile": "../Dockerfile"
+	},
+	"customizations": {
+			"vscode": {
+				"extensions": [
+					"DontShaveTheYak.groovy-guru",
+					"NicolasVuillamy.vscode-groovy-lint"
+				]
+
+			}
+	}
+}
