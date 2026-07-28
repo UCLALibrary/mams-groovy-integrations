@@ -2,17 +2,36 @@
 MAMS-related integrations using Groovy
 
 # Developer Information
-This project uses a dev container to provide a standard development environment for working with Groovy. JDK 25 (the latest LTS version) is installed, as are VS Code extensions for supporting Groovy development.
+
+## Build (first time) / rebuild (as needed)
+
+`docker compose build`
+
+This builds a Docker image, `mams-groovy-integrations-dev:latest`, which can be used for developing, testing, and running code.
 
 ## Dev container
 
 This project comes with a basic dev container definition in `.devcontainer/devcontainer.json`. It's known to work with VS Code,
 and may work with other IDEs like PyCharm. For VS Code, it also installs two extensions: [NicolasVuillamy.vscode-groovy-lint](https://marketplace.visualstudio.com/items?itemName=NicolasVuillamy.vscode-groovy-lint) for linting and [DontShaveTheYak.groovy-guru](https://marketplace.visualstudio.com/items?itemName=DontShaveTheYak.groovy-guru) for IntelliSense.
 
-The dev container config will mount the project's directory at `/workspaces/mams-groovy-integrations` within the container.
+The project's directory is available within the container at `/home/groovy/project`.
 
-### Building and connecting to the dev container
+## Running code
 
-VS Code builds its own container from the project's Dockerfile. With the [Dev Containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) installed, when opening the project locally in VS Code, it will prompt you to reopen the project in a dev container. If you choose to do so, it will build the container and connect to it.
+From within the dev container, you can run code using the `groovy` command. For example, `groovy HelloWorld.groovy` should print "Hello, World" to the console.
 
-Related commands can be found in the Command Palette (Ctrl+Shift+P) under "Dev Containers".
+Otherwise, run a program via docker compose. From the project directory:
+
+```
+# Start the system
+$ docker compose up -d
+
+# Open a shell in the container
+$ docker compose exec dev bash
+
+# Check the Groovy version
+$ groovy -version
+$ WARNING: Using incubator modules: jdk.incubator.vector  <- This warning can be ignored
+$ Groovy Version: 5.0.3 JVM: 25.0.1 Vendor: Eclipse Adoptium OS: Linux
+``` 
+
