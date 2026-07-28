@@ -1,0 +1,7 @@
+services:
+  dev:
+    build: .
+    volumes:
+      - .:/home/groovy/project
+    # Keep the container running until stopped via docker compose.
+    command: "sleep infinity"

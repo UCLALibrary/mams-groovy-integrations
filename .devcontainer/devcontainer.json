@@ -1,15 +1,14 @@
 {
 	"name": "MAMS Groovy Integrations",
-	"build": {
-		"dockerfile": "../Dockerfile"
-	},
+	"dockerComposeFile": "../docker-compose.yml",
+	"service": "dev",
+	"workspaceFolder": "/home/groovy/project",
 	"customizations": {
-			"vscode": {
-				"extensions": [
-					"DontShaveTheYak.groovy-guru",
-					"NicolasVuillamy.vscode-groovy-lint"
-				]
-
-			}
+		"vscode": {
+			"extensions": [
+				"DontShaveTheYak.groovy-guru",
+				"NicolasVuillamy.vscode-groovy-lint"
+			]
+		}
 	}
 }
