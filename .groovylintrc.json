@@ -1,8 +1,1 @@
-{
-    "extends": "recommended",
-    "rules": {
-        "NoDef": {
-            "enabled": false
-        }
-    }
-}
+{}
