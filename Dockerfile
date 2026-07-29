@@ -18,5 +18,8 @@ FROM base AS dev
 # Install git here for compatibility across IDEs
 RUN apt-get install -y git
 
+# Node is needed for the VS Code linting extension we are using
+COPY --from=node:lts /usr/local/bin/node /usr/local/bin/node
+
 # Base image includes groovy user
 USER groovy
