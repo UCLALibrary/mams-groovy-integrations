@@ -8,7 +8,18 @@
 			"extensions": [
 				"DontShaveTheYak.groovy-guru",
 				"NicolasVuillamy.vscode-groovy-lint"
-			]
+			],
+			"settings": {
+				"editor.formatOnSave": true,
+				"files.insertFinalNewline": true,
+				"files.trimFinalNewlines": true,
+				"groovy.classpath": [
+					"/opt/groovy/lib"
+				],
+				"[groovy]": {
+					"editor.defaultFormatter": "NicolasVuillamy.vscode-groovy-lint"
+				}
+			}
 		}
 	}
 }
