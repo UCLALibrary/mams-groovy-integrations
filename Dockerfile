@@ -1,5 +1,6 @@
-# Groovy image with JDK 25 (current LTS version)
-FROM groovy:jdk25 AS base
+# Groovy image with JDK 21 (previous LTS version)
+# Linter requires JDK between 17 and 24
+FROM groovy:jdk21 AS base
 
 USER root
 
