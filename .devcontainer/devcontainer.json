@@ -1,0 +1,25 @@
+{
+	"name": "MAMS Groovy Integrations",
+	"dockerComposeFile": "../docker-compose.yml",
+	"service": "dev",
+	"workspaceFolder": "/home/groovy/project",
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"DontShaveTheYak.groovy-guru",
+				"NicolasVuillamy.vscode-groovy-lint"
+			],
+			"settings": {
+				"editor.formatOnSave": true,
+				"files.insertFinalNewline": true,
+				"files.trimFinalNewlines": true,
+				"groovy.classpath": [
+					"/opt/groovy/lib"
+				],
+				"[groovy]": {
+					"editor.defaultFormatter": "NicolasVuillamy.vscode-groovy-lint"
+				}
+			}
+		}
+	}
+}
