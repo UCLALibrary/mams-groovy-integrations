@@ -7,8 +7,8 @@ import com.tedial.pam.bpmengineclients.ws.entity.RSFile
  * =============================================================================
  * UCLA BATON QC PROFILE LOOKUP KEY
  * =============================================================================
- * Version: v2.4
- * Date: 2026-09-09
+ * Version: v2.5
+ * Date: 2026-09-11
  *
  * Purpose
  * -------
@@ -274,7 +274,7 @@ def normaliseWrapper = { wrapper, fileName ->
     if (cleanWrapper == "MPEG-4" && cleanFileName.endsWith(".mov")) {
         return "QT"
     }
-
+    
     if (cleanWrapper == "MXF-ATOM" && cleanFileName.endsWith(".mxf")) {
         return "MXF"
     }
@@ -427,16 +427,21 @@ def normaliseEditRate = { editRate ->
  */
 def aspectRatioMappings = [
     "40:27": "3.2",
-    "2048:1485": "1.379"
+    "2048:1485": "1.379",
+    "256:135": "1.89"
 ]
 
-def normaliseAspectRatio = { aspectRatio ->
+def normaliseAspectRatio = { aspectRatio, wrapper ->
 
     def cleanAspectRatio =
         aspectRatio != null ? aspectRatio.trim() : ""
 
     if (cleanAspectRatio == "") {
         return ""
+    }
+
+    if (wrapper == "MXF" && cleanAspectRatio == "256:135") {
+        return "1.9"
     }
 
     if (aspectRatioMappings.containsKey(cleanAspectRatio)) {
@@ -547,7 +552,7 @@ def fps =
     normaliseEditRate(textValue(videoTrack.EDIT_RATE))
 
 def aspectRatio =
-    normaliseAspectRatio(textValue(videoTrack.ASPECT_RATIO))
+    normaliseAspectRatio(textValue(videoTrack.ASPECT_RATIO), wrapper)
 
 def videoBitDepth = normaliseVideoBitDepth(
     sourceVideoCodec,
