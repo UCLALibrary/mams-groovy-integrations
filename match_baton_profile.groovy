@@ -7,8 +7,8 @@ import com.tedial.pam.bpmengineclients.ws.entity.RSFile
  * =============================================================================
  * UCLA BATON QC PROFILE LOOKUP KEY
  * =============================================================================
- * Version: v2.5
- * Date: 2026-09-11
+ * Version: v2.6
+ * Date: 2026-09-16
  *
  * Purpose
  * -------
@@ -189,16 +189,29 @@ String technicalXmlString = wipController.getFileContentAsString(
 def technicalXml =
     new XmlSlurper(false, false).parseText(technicalXmlString)
 
-
 // =============================================================================
 // 5. SELECT THE FILE, VIDEO TRACK AND AUDIO TRACK USED FOR THE KEY
 // =============================================================================
+// Initialize variables
+def fileNode = null
+def videoTrack = null
+def audioTrack = null
 
-// UCLA's current profile convention is based on the first analysed FILE,
-// first VIDEO_TRACK and first AUDIO_TRACK.
-def fileNode = technicalXml.ASSET.TECHNICAL.FILE[0]
+// Helper closure to find the track with `trackName` under the FILE node with `wrapper`.
+def findTrack = { files, wrapper, trackName ->
+    files.findResult { candidateFile ->
+        if (candidateFile?.WRAPPER?.text()?.trim() != wrapper) {
+            return null
+        }
 
-if (fileNode == null || fileNode.size() == 0) {
+        def tracks = candidateFile?.TRACKS?."$trackName"
+        return (tracks != null && tracks.size() > 0) ? tracks[0] : null
+    }
+}
+
+// Check that there is at least one FILE node in the technical XML.
+def fileNodes = technicalXml.ASSET?.TECHNICAL?.FILE
+if (fileNodes == null || fileNodes.size() == 0) {
     logger.info(
         "QC lookup key could not be built. No FILE node found in technical XML."
     )
@@ -206,8 +219,34 @@ if (fileNode == null || fileNode.size() == 0) {
     return saveLookupResult("", "No Match")
 }
 
-def videoTrack = fileNode.TRACKS.VIDEO_TRACK[0]
-def audioTrack = fileNode.TRACKS.AUDIO_TRACK[0]
+// MXF packages have multiple FILE nodes, so we need to find the right ones.
+// Otherwise, we can take the first FILE node,
+// and use the first VIDEO_TRACK and AUDIO_TRACK found under FILE.TRACKS.
+def isMxf = fileNodes.any { file -> file?.WRAPPER?.text()?.trim() == "MXF-Atom" }
+
+if (isMxf) {
+    // TODO: Improve fileNode and track selection logic.
+    //
+    // The XML for MXF packages contains multiple FILE nodes,
+    // one of which should contain a VIDEO_TRACK,
+    // and another of which should contain an AUDIO_TRACK.
+    // Since the tracks come from different FILE nodes,
+    // we should assign `videoFileNode` and `audioFileNode` separately,
+    // rather than assigning fileNode as the first FILE node with WRAPPER "MXF-Atom".
+    // Then we should check that the WRAPPER values both equal "MXF-Atom"
+    // and their @NAME attributes both end in `.mxf`.
+    // Currently, fileNode is only used in the params for `normaliseWrapper` below,
+    // to access WRAPPER and @NAME values, but this could be revised.
+    fileNode = fileNodes.find { file -> file?.WRAPPER?.text()?.trim() == "MXF-Atom" }
+    // Now find the VIDEO_TRACK and AUDIO_TRACK under their respective FILE nodes with WRAPPER "MXF-Atom".
+    videoTrack = findTrack(fileNodes, "MXF-Atom", "VIDEO_TRACK")
+    audioTrack = findTrack(fileNodes, "MXF-Atom", "AUDIO_TRACK")
+} else {
+    // Otherwise, take the first FILE node and the first VIDEO_TRACK and AUDIO_TRACK under it.
+    fileNode = fileNodes[0]
+    videoTrack = fileNode.TRACKS?.VIDEO_TRACK?.size() > 0 ? fileNode.TRACKS.VIDEO_TRACK[0] : null
+    audioTrack = fileNode.TRACKS?.AUDIO_TRACK?.size() > 0 ? fileNode.TRACKS.AUDIO_TRACK[0] : null
+}
 
 if (videoTrack == null || videoTrack.size() == 0) {
     logger.info(
