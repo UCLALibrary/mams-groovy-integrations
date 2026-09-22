@@ -205,7 +205,7 @@ def findTrack = { files, wrapper, trackName ->
         }
 
         def tracks = candidateFile?.TRACKS?."$trackName"
-        return tracks != null && tracks.size() > 0 ? tracks[0] : null
+        return (tracks != null && tracks.size() > 0) ? tracks[0] : null
     }
 }
 
@@ -225,7 +225,18 @@ if (fileNodes == null || fileNodes.size() == 0) {
 def isMxf = fileNodes.any { file -> file?.WRAPPER?.text()?.trim() == "MXF-Atom" }
 
 if (isMxf) {
-    // Find the first FILE node with WRAPPER "MXF-Atom". This is our representative FILE node, for use later.
+    // TODO: Improve fileNode and track selection logic.
+    //
+    // The XML for MXF packages contains multiple FILE nodes,
+    // one of which should contain a VIDEO_TRACK,
+    // and another of which should contain an AUDIO_TRACK.
+    // Since the tracks come from different FILE nodes,
+    // we should assign `videoFileNode` and `audioFileNode` separately,
+    // rather than assigning fileNode as the first FILE node with WRAPPER "MXF-Atom".
+    // Then we should check that the WRAPPER values both equal "MXF-Atom"
+    // and their @NAME attributes both end in `.mxf`.
+    // Currently, fileNode is only used in the params for `normaliseWrapper` below,
+    // to access WRAPPER and @NAME values, but this could be revised.
     fileNode = fileNodes.find { file -> file?.WRAPPER?.text()?.trim() == "MXF-Atom" }
     // Now find the VIDEO_TRACK and AUDIO_TRACK under their respective FILE nodes with WRAPPER "MXF-Atom".
     videoTrack = findTrack(fileNodes, "MXF-Atom", "VIDEO_TRACK")
