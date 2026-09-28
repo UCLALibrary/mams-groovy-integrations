@@ -7,8 +7,8 @@ import com.tedial.pam.bpmengineclients.ws.entity.RSFile
  * =============================================================================
  * UCLA BATON QC PROFILE LOOKUP KEY
  * =============================================================================
- * Version: v2.6
- * Date: 2026-09-16
+ * Version: v2.7
+ * Date: 2026-09-28
  *
  * Purpose
  * -------
