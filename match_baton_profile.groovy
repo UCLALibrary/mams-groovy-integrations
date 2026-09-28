@@ -7,8 +7,8 @@ import com.tedial.pam.bpmengineclients.ws.entity.RSFile
  * =============================================================================
  * UCLA BATON QC PROFILE LOOKUP KEY
  * =============================================================================
- * Version: v2.6
- * Date: 2026-09-16
+ * Version: v2.7
+ * Date: 2026-09-28
  *
  * Purpose
  * -------
@@ -105,7 +105,10 @@ def knownBatonProfiles = [
     "MAMs_WAV_PCM_48.24_1.0",
     "MAMs_MP4_1920x1080_AVC_2398fps_16.9_8bit_AACLC_48.16_2.0",
     "MAMs_MXF_4096x2160_JPEG2000_24fps_1.9_12bit_PCM_48.24_6.0",
-    "MAMs_MXF_2048x1080_JPEG2000_24fps_1.9_12bit_PCM_48.24_6.0"
+    "MAMs_MXF_2048x1080_JPEG2000_24fps_1.9_12bit_PCM_48.24_6.0",
+    "MAMs_QT_1920x1080_422HQ_24fps_16.9_10bit_MOS",
+    "MAMs_QT_1920x1080_422HQ_5994fps_16.9_10bit_PCM_48.24_2.0",
+    "MAMs_QT_1920x1080_422HQ_2997fps_16.9_10bit_PCM_48.16_2.0"
 ] as Set
 
 
