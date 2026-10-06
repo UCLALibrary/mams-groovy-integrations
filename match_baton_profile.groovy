@@ -49,7 +49,6 @@ import com.tedial.pam.bpmengineclients.ws.entity.RSFile
  * or helper functions below.
  */
 
-
 // =============================================================================
 // 1. KNOWN BATON PROFILE NAMES
 // =============================================================================
@@ -62,55 +61,54 @@ import com.tedial.pam.bpmengineclients.ws.entity.RSFile
  * name must also be added or updated in this list.
  */
 def knownBatonProfiles = [
-    "MAMs_QT_7680x4320_4444_24fps_16.9_12bit_PCM_96.16_2.0",
-    "MAMs_QT_5120x3840_422HQ_24fps_4.3_10bit_PCM_96.24_2.0",
-    "MAMs_QT_5120x3840_422HQ_24fps_4.3_10bit_PCM_48.24_2.0",
-    "MAMs_QT_5120x3840_422HQ_24fps_4.3_10bit_MOS",
-    "MAMs_QT_5120x3840_422HQ_20fps_4.3_10bit_MOS",
-    "MAMs_QT_4096x3112_422HQ_24fps_4.3_10bit_PCM_48.24_2.0",
-    "MAMs_QT_4096x3112_422HQ_24fps_4.3_10bit_PCM_48.16_2.0",
-    "MAMs_QT_4096x3112_422HQ_24fps_4.3_10bit_PCM_48.16_1.0",
-    "MAMs_QT_4096x3112_422HQ_2398fps_4.3_10bit_PCM_48.24_2.0",
-    "MAMs_QT_4096x2160_422HQ_24fps_1.89_10bit_PCM_48.24_2.0",
-    "MAMs_QT_2560x1920_422HQ_24fps_4.3_10bit_PCM_96.24_2.0",
-    "MAMs_QT_2560x1920_422HQ_24fps_4.3_10bit_PCM_48.24_2.0",
-    "MAMs_QT_2560x1920_422HQ_24fps_4.3_10bit_MOS",
-    "MAMs_QT_2048x1556_4444_18fps_4.3_12bit_MOS",
-    "MAMs_QT_2048x1556_422HQ_24fps_4.3_10bit_PCM_48.24_2.0",
-    "MAMs_QT_2048x1556_422HQ_24fps_4.3_10bit_PCM_48.16_2.0",
-    "MAMs_QT_2048x1556_422HQ_24fps_4.3_10bit_PCM_48.24_1.0",
-    "MAMs_QT_2048x1556_422HQ_18fps_4.3_10bit_PCM_48.24_2.0",
-    "MAMs_QT_2048x1485_422HQ_24fps_1.379_10bit_PCM_48.24_2.0",
-    "MAMs_QT_2048x1485_422HQ_24fps_1.379_10bit_PCM_48.16_2.0",
-    "MAMs_QT_2048x1485_422HQ_2398fps_1.379_10bit_PCM_48.16_2.0",
-    "MAMs_QT_2048x1080_422HQ_30fps_1.89_10bit_PCM_48.16_2.0",
-    "MAMs_AVI_1440x1080_RGB_25fps_4.3_8bit_MOS",
-    "MAMs_AVI_1440x1080_RGB_25fps_4.3_24bit_MOS",
-    "MAMs_QT_1920x1080_4444_24fps_16.9_12bit_PCM_48.24_2.0",
-    "MAMs_QT_1920x1080_422HQ_5994fps_16.9_10bit_PCM_48.16_2.0",
-    "MAMs_QT_1920x1080_422HQ_2997fps_16.9_10bit_PCM_48.24_1.0",
-    "MAMs_QT_1920x1080_422HQ_24fps_16.9_10bit_PCM_48.24_2.0",
-    "MAMs_QT_1920x1080_422HQ_2398fps_16.9_10bit_PCM_48.16_2.0",
-    "MAMs_QT_1920x1080_422HQ_2398fps_16.9_10bit_PCM_48.16_1.0",
-    "MAMs_QT_720x486_422HQ_2398fps_4.3_10bit_PCM_48.24_2.0",
-    "MAMs_QT_720x486_V210_2997fps_4.3_10bit_PCM_48.24_2.0",
-    "MAMs_QT_720x486_2VUY_2997fps_4.3_8bit_PCM_48.24_2.0",
-    "MAMs_QT_720x486_2VUY_2997fps_3.2_8bit_PCM_48.24_2.0",
-    "MAMs_QT_720x486_2VUY_2997fps_3.2_8bit_PCM_48.24_1.0",
-    "MAMs_QT_720x480_422HQ_2997fps_4.3_10bit_PCM_48.16_2.0",
-    "MAMs_AVI_720x480_DV_2997fps_4.3_8bit_PCM_48.16_2.0",
-    "MAMs_QT_720x480_DV_2997fps_4.3_8bit_PCM_48.16_1.0",
-    "MAMs_WAV_PCM_96.32_2.0",
-    "MAMs_WAV_PCM_96.24_1.0",
-    "MAMs_WAV_PCM_48.24_1.0",
-    "MAMs_MP4_1920x1080_AVC_2398fps_16.9_8bit_AACLC_48.16_2.0",
-    "MAMs_MXF_4096x2160_JPEG2000_24fps_1.9_12bit_PCM_48.24_6.0",
-    "MAMs_MXF_2048x1080_JPEG2000_24fps_1.9_12bit_PCM_48.24_6.0",
-    "MAMs_QT_1920x1080_422HQ_24fps_16.9_10bit_MOS",
-    "MAMs_QT_1920x1080_422HQ_5994fps_16.9_10bit_PCM_48.24_2.0",
-    "MAMs_QT_1920x1080_422HQ_2997fps_16.9_10bit_PCM_48.16_2.0"
+    'MAMs_QT_7680x4320_4444_24fps_16.9_12bit_PCM_96.16_2.0',
+    'MAMs_QT_5120x3840_422HQ_24fps_4.3_10bit_PCM_96.24_2.0',
+    'MAMs_QT_5120x3840_422HQ_24fps_4.3_10bit_PCM_48.24_2.0',
+    'MAMs_QT_5120x3840_422HQ_24fps_4.3_10bit_MOS',
+    'MAMs_QT_5120x3840_422HQ_20fps_4.3_10bit_MOS',
+    'MAMs_QT_4096x3112_422HQ_24fps_4.3_10bit_PCM_48.24_2.0',
+    'MAMs_QT_4096x3112_422HQ_24fps_4.3_10bit_PCM_48.16_2.0',
+    'MAMs_QT_4096x3112_422HQ_24fps_4.3_10bit_PCM_48.16_1.0',
+    'MAMs_QT_4096x3112_422HQ_2398fps_4.3_10bit_PCM_48.24_2.0',
+    'MAMs_QT_4096x2160_422HQ_24fps_1.89_10bit_PCM_48.24_2.0',
+    'MAMs_QT_2560x1920_422HQ_24fps_4.3_10bit_PCM_96.24_2.0',
+    'MAMs_QT_2560x1920_422HQ_24fps_4.3_10bit_PCM_48.24_2.0',
+    'MAMs_QT_2560x1920_422HQ_24fps_4.3_10bit_MOS',
+    'MAMs_QT_2048x1556_4444_18fps_4.3_12bit_MOS',
+    'MAMs_QT_2048x1556_422HQ_24fps_4.3_10bit_PCM_48.24_2.0',
+    'MAMs_QT_2048x1556_422HQ_24fps_4.3_10bit_PCM_48.16_2.0',
+    'MAMs_QT_2048x1556_422HQ_24fps_4.3_10bit_PCM_48.24_1.0',
+    'MAMs_QT_2048x1556_422HQ_18fps_4.3_10bit_PCM_48.24_2.0',
+    'MAMs_QT_2048x1485_422HQ_24fps_1.379_10bit_PCM_48.24_2.0',
+    'MAMs_QT_2048x1485_422HQ_24fps_1.379_10bit_PCM_48.16_2.0',
+    'MAMs_QT_2048x1485_422HQ_2398fps_1.379_10bit_PCM_48.16_2.0',
+    'MAMs_QT_2048x1080_422HQ_30fps_1.89_10bit_PCM_48.16_2.0',
+    'MAMs_AVI_1440x1080_RGB_25fps_4.3_8bit_MOS',
+    'MAMs_AVI_1440x1080_RGB_25fps_4.3_24bit_MOS',
+    'MAMs_QT_1920x1080_4444_24fps_16.9_12bit_PCM_48.24_2.0',
+    'MAMs_QT_1920x1080_422HQ_5994fps_16.9_10bit_PCM_48.16_2.0',
+    'MAMs_QT_1920x1080_422HQ_2997fps_16.9_10bit_PCM_48.24_1.0',
+    'MAMs_QT_1920x1080_422HQ_24fps_16.9_10bit_PCM_48.24_2.0',
+    'MAMs_QT_1920x1080_422HQ_2398fps_16.9_10bit_PCM_48.16_2.0',
+    'MAMs_QT_1920x1080_422HQ_2398fps_16.9_10bit_PCM_48.16_1.0',
+    'MAMs_QT_720x486_422HQ_2398fps_4.3_10bit_PCM_48.24_2.0',
+    'MAMs_QT_720x486_V210_2997fps_4.3_10bit_PCM_48.24_2.0',
+    'MAMs_QT_720x486_2VUY_2997fps_4.3_8bit_PCM_48.24_2.0',
+    'MAMs_QT_720x486_2VUY_2997fps_3.2_8bit_PCM_48.24_2.0',
+    'MAMs_QT_720x486_2VUY_2997fps_3.2_8bit_PCM_48.24_1.0',
+    'MAMs_QT_720x480_422HQ_2997fps_4.3_10bit_PCM_48.16_2.0',
+    'MAMs_AVI_720x480_DV_2997fps_4.3_8bit_PCM_48.16_2.0',
+    'MAMs_QT_720x480_DV_2997fps_4.3_8bit_PCM_48.16_1.0',
+    'MAMs_WAV_PCM_96.32_2.0',
+    'MAMs_WAV_PCM_96.24_1.0',
+    'MAMs_WAV_PCM_48.24_1.0',
+    'MAMs_MP4_1920x1080_AVC_2398fps_16.9_8bit_AACLC_48.16_2.0',
+    'MAMs_MXF_4096x2160_JPEG2000_24fps_1.9_12bit_PCM_48.24_6.0',
+    'MAMs_MXF_2048x1080_JPEG2000_24fps_1.9_12bit_PCM_48.24_6.0',
+    'MAMs_QT_1920x1080_422HQ_24fps_16.9_10bit_MOS',
+    'MAMs_QT_1920x1080_422HQ_5994fps_16.9_10bit_PCM_48.24_2.0',
+    'MAMs_QT_1920x1080_422HQ_2997fps_16.9_10bit_PCM_48.16_2.0'
 ] as Set
-
 
 // =============================================================================
 // 2. SAVE THE LOOKUP RESULT FOR LATER WORKFLOW STEPS
@@ -126,19 +124,17 @@ def knownBatonProfiles = [
  * NO_MATCH
  */
 def saveLookupResult = { lookupKey, matchResult ->
-
-    def safeLookupKey = lookupKey != null ? lookupKey.toString() : ""
-    def safeMatchResult = matchResult == "Match" ? "Match" : "No Match"
+    def safeLookupKey = lookupKey != null ? lookupKey.toString() : ''
+    def safeMatchResult = matchResult == 'Match' ? 'Match' : 'No Match'
 
     def metadataMap = [:]
-    metadataMap["BPM:QC:LOOKUP_KEY"] = safeLookupKey
-    metadataMap["BPM:QC:MATCH_RESULT"] = safeMatchResult
+    metadataMap['BPM:QC:LOOKUP_KEY'] = safeLookupKey
+    metadataMap['BPM:QC:MATCH_RESULT'] = safeMatchResult
 
     BPM.saveMetadata(metadataMap)
 
-    return safeMatchResult == "Match" ? "MATCH" : "NO_MATCH"
+    return safeMatchResult == 'Match' ? 'MATCH' : 'NO_MATCH'
 }
-
 
 // =============================================================================
 // 3. GET THE CURRENT WIP CONTEXT
@@ -150,7 +146,6 @@ AddonContext addonContext = AddonContext.getContextByActInst(ai)
 WIPController wipController =
     ApplicationContextAccessor.getBean(WIPController.class)
 
-
 // =============================================================================
 // 4. FIND AND READ THE TECHNICAL XML
 // =============================================================================
@@ -158,30 +153,29 @@ WIPController wipController =
 // Different workflows or product versions may use different technical XML
 // filenames, so check the known alternatives in order.
 def possibleTechnicalFiles = [
-    "technical.xml",
-    "WIP_TECHNICAL.xml",
-    "wip_technical.xml"
+    'technical.xml',
+    'WIP_TECHNICAL.xml',
+    'wip_technical.xml'
 ]
 
 RSFile technicalFile = null
 
 possibleTechnicalFiles.each { fileName ->
-
     if (technicalFile == null) {
         try {
             technicalFile = wipController.findFileByName(ai, fileName)
         } catch (Exception ignored) {
-            // File not found under this name. Continue with the next one.
+        // File not found under this name. Continue with the next one.
         }
     }
 }
 
 if (technicalFile == null) {
     logger.info(
-        "QC lookup key could not be built. No technical XML file found."
+        'QC lookup key could not be built. No technical XML file found.'
     )
 
-    return saveLookupResult("", "No Match")
+    return saveLookupResult('', 'No Match')
 }
 
 String technicalXmlString = wipController.getFileContentAsString(
@@ -216,16 +210,16 @@ def findTrack = { files, wrapper, trackName ->
 def fileNodes = technicalXml.ASSET?.TECHNICAL?.FILE
 if (fileNodes == null || fileNodes.size() == 0) {
     logger.info(
-        "QC lookup key could not be built. No FILE node found in technical XML."
+        'QC lookup key could not be built. No FILE node found in technical XML.'
     )
 
-    return saveLookupResult("", "No Match")
+    return saveLookupResult('', 'No Match')
 }
 
 // MXF packages have multiple FILE nodes, so we need to find the right ones.
 // Otherwise, we can take the first FILE node,
 // and use the first VIDEO_TRACK and AUDIO_TRACK found under FILE.TRACKS.
-def isMxf = fileNodes.any { file -> file?.WRAPPER?.text()?.trim() == "MXF-Atom" }
+def isMxf = fileNodes.any { file -> file?.WRAPPER?.text()?.trim() == 'MXF-Atom' }
 
 if (isMxf) {
     // TODO: Improve fileNode and track selection logic.
@@ -240,10 +234,10 @@ if (isMxf) {
     // and their @NAME attributes both end in `.mxf`.
     // Currently, fileNode is only used in the params for `normaliseWrapper` below,
     // to access WRAPPER and @NAME values, but this could be revised.
-    fileNode = fileNodes.find { file -> file?.WRAPPER?.text()?.trim() == "MXF-Atom" }
+    fileNode = fileNodes.find { file -> file?.WRAPPER?.text()?.trim() == 'MXF-Atom' }
     // Now find the VIDEO_TRACK and AUDIO_TRACK under their respective FILE nodes with WRAPPER "MXF-Atom".
-    videoTrack = findTrack(fileNodes, "MXF-Atom", "VIDEO_TRACK")
-    audioTrack = findTrack(fileNodes, "MXF-Atom", "AUDIO_TRACK")
+    videoTrack = findTrack(fileNodes, 'MXF-Atom', 'VIDEO_TRACK')
+    audioTrack = findTrack(fileNodes, 'MXF-Atom', 'AUDIO_TRACK')
 } else {
     // Otherwise, take the first FILE node and the first VIDEO_TRACK and AUDIO_TRACK under it.
     fileNode = fileNodes[0]
@@ -253,10 +247,10 @@ if (isMxf) {
 
 if (videoTrack == null || videoTrack.size() == 0) {
     logger.info(
-        "QC lookup key could not be built. No VIDEO_TRACK found."
+        'QC lookup key could not be built. No VIDEO_TRACK found.'
     )
 
-    return saveLookupResult("", "No Match")
+    return saveLookupResult('', 'No Match')
 }
 
 /*
@@ -267,18 +261,15 @@ if (videoTrack == null || videoTrack.size() == 0) {
  * generates 1.0 from the first AUDIO_TRACK.
  */
 
-
 // =============================================================================
 // 6. GENERAL XML VALUE HELPER
 // =============================================================================
 
 def textValue = { node ->
-
     return node != null && node.size() > 0
         ? node.text().trim()
-        : ""
+        : ''
 }
-
 
 // =============================================================================
 // 6A. CONTAINER WRAPPER NORMALISATION
@@ -302,23 +293,22 @@ def textValue = { node ->
  * remain visible in the generated No Match lookup key.
  */
 def normaliseWrapper = { wrapper, fileName ->
-
     def cleanWrapper =
-        wrapper != null ? wrapper.trim().toUpperCase() : ""
+        wrapper != null ? wrapper.trim().toUpperCase() : ''
 
     def cleanFileName =
-        fileName != null ? fileName.trim().toLowerCase() : ""
+        fileName != null ? fileName.trim().toLowerCase() : ''
 
-    if (cleanWrapper == "QT" || cleanWrapper == "QUICKTIME") {
-        return "QT"
+    if (cleanWrapper == 'QT' || cleanWrapper == 'QUICKTIME') {
+        return 'QT'
     }
 
-    if (cleanWrapper == "MPEG-4" && cleanFileName.endsWith(".mov")) {
-        return "QT"
+    if (cleanWrapper == 'MPEG-4' && cleanFileName.endsWith('.mov')) {
+        return 'QT'
     }
-    
-    if (cleanWrapper == "MXF-ATOM" && cleanFileName.endsWith(".mxf")) {
-        return "MXF"
+
+    if (cleanWrapper == 'MXF-ATOM' && cleanFileName.endsWith('.mxf')) {
+        return 'MXF'
     }
 
     return cleanWrapper
@@ -331,21 +321,20 @@ def normaliseWrapper = { wrapper, fileName ->
 // Keys are values returned by technical analysis.
 // Values are the exact labels used in UCLA's Baton profile names.
 def videoCodecMappings = [
-    "PRORES_422_HQ": "422HQ",
-    "V210"         : "V210",
-    "2VUY"         : "2VUY",
-    "PRORES_4444"  : "4444",
-    "BGR24"        : "RGB",
-    "DVCPRO"       : "DV"
+    'PRORES_422_HQ': '422HQ',
+    'V210'         : 'V210',
+    '2VUY'         : '2VUY',
+    'PRORES_4444'  : '4444',
+    'BGR24'        : 'RGB',
+    'DVCPRO'       : 'DV'
 ]
 
 def normaliseVideoCodec = { codec ->
-
     def cleanCodec =
-        codec != null ? codec.trim().toUpperCase() : ""
+        codec != null ? codec.trim().toUpperCase() : ''
 
-    if (cleanCodec == "") {
-        return ""
+    if (cleanCodec == '') {
+        return ''
     }
 
     /*
@@ -357,95 +346,90 @@ def normaliseVideoCodec = { codec ->
         : cleanCodec
 }
 
-
 // =============================================================================
 // 8. FRAME-RATE NORMALISATION
 // =============================================================================
 
 def normaliseEditRate = { editRate ->
-
-    if (editRate == null || editRate.trim() == "") {
-        return ""
+    if (editRate == null || editRate.trim() == '') {
+        return ''
     }
 
-    def cleanRate = editRate.trim().replaceAll("\\s+", " ")
-    def parts = cleanRate.split(" ")
+    def cleanRate = editRate.trim().replaceAll('\\s+', ' ')
+    def parts = cleanRate.split(' ')
 
     if (parts.size() == 2) {
-
         def numerator = parts[0]
         def denominator = parts[1]
 
         // Exact values used by UCLA's Baton profile naming convention.
         if (
-            (numerator == "24000" && denominator == "1001") ||
-            (numerator == "23976" && denominator == "1000")
+            (numerator == '24000' && denominator == '1001') ||
+            (numerator == '23976' && denominator == '1000')
         ) {
-            return "2398fps"
+            return '2398fps'
         }
 
         if (
-            (numerator == "30000" && denominator == "1001") ||
-            (numerator == "29970" && denominator == "1000")
+            (numerator == '30000' && denominator == '1001') ||
+            (numerator == '29970' && denominator == '1000')
         ) {
-            return "2997fps"
+            return '2997fps'
         }
 
         if (
-            (numerator == "60000" && denominator == "1001") ||
-            (numerator == "59940" && denominator == "1000")
+            (numerator == '60000' && denominator == '1001') ||
+            (numerator == '59940' && denominator == '1000')
         ) {
-            return "5994fps"
+            return '5994fps'
         }
 
-        if (denominator == "1") {
-            return numerator + "fps"
+        if (denominator == '1') {
+            return numerator + 'fps'
         }
 
         BigDecimal n = new BigDecimal(numerator)
         BigDecimal d = new BigDecimal(denominator)
 
         if (d.compareTo(BigDecimal.ZERO) != 0) {
-
             BigDecimal calculatedFps =
                 n.divide(d, 6, BigDecimal.ROUND_HALF_UP)
 
             def fpsText =
                 calculatedFps.stripTrailingZeros().toPlainString()
 
-            if (fpsText == "23.976" || fpsText == "23.98") {
-                return "2398fps"
+            if (fpsText == '23.976' || fpsText == '23.98') {
+                return '2398fps'
             }
 
-            if (fpsText == "29.97") {
-                return "2997fps"
+            if (fpsText == '29.97') {
+                return '2997fps'
             }
 
-            if (fpsText == "59.94") {
-                return "5994fps"
+            if (fpsText == '59.94') {
+                return '5994fps'
             }
 
-            return fpsText.replace(".", "") + "fps"
+            return fpsText.replace('.', '') + 'fps'
         }
     }
 
-    if (cleanRate == "29.97") {
-        return "2997fps"
+    if (cleanRate == '29.97') {
+        return '2997fps'
     }
 
-    if (cleanRate == "23.98" || cleanRate == "23.976") {
-        return "2398fps"
+    if (cleanRate == '23.98' || cleanRate == '23.976') {
+        return '2398fps'
     }
 
-    if (cleanRate == "59.94") {
-        return "5994fps"
+    if (cleanRate == '59.94') {
+        return '5994fps'
     }
 
     return cleanRate
-        .replace(".", "")
-        .replaceAll("\\s+", "_") + "fps"
+        .replace('.', '')
+        .replaceAll('\\s+', '_') + 'fps'
 }
-
 
 // =============================================================================
 // 9. ASPECT-RATIO NORMALISATION
@@ -468,31 +452,29 @@ def normaliseEditRate = { editRate ->
  * replaced by a full stop.
  */
 def aspectRatioMappings = [
-    "40:27": "3.2",
-    "2048:1485": "1.379",
-    "256:135": "1.89"
+    '40:27': '3.2',
+    '2048:1485': '1.379',
+    '256:135': '1.89'
 ]
 
 def normaliseAspectRatio = { aspectRatio, wrapper ->
-
     def cleanAspectRatio =
-        aspectRatio != null ? aspectRatio.trim() : ""
+        aspectRatio != null ? aspectRatio.trim() : ''
 
-    if (cleanAspectRatio == "") {
-        return ""
+    if (cleanAspectRatio == '') {
+        return ''
     }
 
-    if (wrapper == "MXF" && cleanAspectRatio == "256:135") {
-        return "1.9"
+    if (wrapper == 'MXF' && cleanAspectRatio == '256:135') {
+        return '1.9'
     }
 
     if (aspectRatioMappings.containsKey(cleanAspectRatio)) {
         return aspectRatioMappings[cleanAspectRatio]
     }
 
-    return cleanAspectRatio.replace(":", ".")
+    return cleanAspectRatio.replace(':', '.')
 }
-
 
 // =============================================================================
 // 10. VIDEO BIT-DEPTH NORMALISATION
@@ -508,66 +490,60 @@ def normaliseAspectRatio = { aspectRatio, wrapper ->
  * BITS_PER_PIXEL value.
  */
 def videoBitDepthMappings = [
-    "2VUY": "8bit",
-    "DVCPRO": "8bit",
-    "DV": "8bit"
+    '2VUY': '8bit',
+    'DVCPRO': '8bit',
+    'DV': '8bit'
 ]
 
 def normaliseVideoBitDepth = { sourceCodec, bitsPerPixel ->
-
     def cleanCodec =
-        sourceCodec != null ? sourceCodec.trim().toUpperCase() : ""
+        sourceCodec != null ? sourceCodec.trim().toUpperCase() : ''
 
     if (videoBitDepthMappings.containsKey(cleanCodec)) {
         return videoBitDepthMappings[cleanCodec]
     }
 
     def cleanBits =
-        bitsPerPixel != null ? bitsPerPixel.trim() : ""
+        bitsPerPixel != null ? bitsPerPixel.trim() : ''
 
-    return cleanBits != ""
-        ? cleanBits + "bit"
-        : ""
+    return cleanBits != ''
+        ? cleanBits + 'bit'
+        : ''
 }
-
 
 // =============================================================================
 // 11. AUDIO SAMPLE-RATE NORMALISATION
 // =============================================================================
 
 def normaliseSampleRate = { audioEditRate ->
-
-    if (audioEditRate == null || audioEditRate.trim() == "") {
-        return ""
+    if (audioEditRate == null || audioEditRate.trim() == '') {
+        return ''
     }
 
-    def parts = audioEditRate.trim().split("\\s+")
+    def parts = audioEditRate.trim().split('\\s+')
     BigDecimal hz = new BigDecimal(parts[0])
 
     // Baton profile names express 48000 Hz as 48.
     return hz
         .divide(
-            new BigDecimal("1000"),
+            new BigDecimal('1000'),
             0,
             BigDecimal.ROUND_HALF_UP
         )
         .toPlainString()
 }
 
-
 // =============================================================================
 // 12. AUDIO CHANNEL NORMALISATION
 // =============================================================================
 
 def normaliseChannels = { channels ->
-
-    if (channels == null || channels.trim() == "") {
-        return ""
+    if (channels == null || channels.trim() == '') {
+        return ''
     }
 
-    return channels.trim() + ".0"
+    return channels.trim() + '.0'
 }
-
 
 // =============================================================================
 // 13. READ AND NORMALISE THE VIDEO VALUES
@@ -601,7 +577,6 @@ def videoBitDepth = normaliseVideoBitDepth(
     textValue(videoTrack.BITS_PER_PIXEL)
 )
 
-
 // =============================================================================
 // 14. READ AND NORMALISE THE AUDIO VALUES
 // =============================================================================
@@ -615,7 +590,6 @@ def hasAudio =
     audioTrack != null && audioTrack.size() > 0
 
 if (hasAudio) {
-
     audioCodec =
         textValue(audioTrack.AUDIO_CODEC).toUpperCase()
 
@@ -629,9 +603,7 @@ if (hasAudio) {
         normaliseChannels(
             textValue(audioTrack.AUDIO_CHANNELS_PER_TRACK)
         )
-
 } else {
-
     /*
      * UCLA Baton profiles use MOS as the final component when the
      * source media contains no audio.
@@ -642,26 +614,25 @@ if (hasAudio) {
      * Example:
      * MAMs QT_2048x1556_4444_18fps_4.3_12bit_MOS
      */
-    audioCodec = "MOS"
-    sampleRate = ""
-    audioBitDepth = ""
-    channels = ""
+    audioCodec = 'MOS'
+    sampleRate = ''
+    audioBitDepth = ''
+    channels = ''
 }
-
 
 // =============================================================================
 // 15. VALIDATE REQUIRED COMPONENTS BEFORE BUILDING THE KEY
 // =============================================================================
 
 def keyComponents = [
-    "container"         : wrapper,
-    "resolution width"  : width,
-    "resolution height" : height,
-    "video codec"       : videoCodec,
-    "frame rate"        : fps,
-    "aspect ratio"      : aspectRatio,
-    "video bit depth"   : videoBitDepth,
-    "audio format"      : audioCodec
+    'container'         : wrapper,
+    'resolution width'  : width,
+    'resolution height' : height,
+    'video codec'       : videoCodec,
+    'frame rate'        : fps,
+    'aspect ratio'      : aspectRatio,
+    'video bit depth'   : videoBitDepth,
+    'audio format'      : audioCodec
 ]
 
 /*
@@ -672,27 +643,23 @@ def keyComponents = [
  * component of the Baton profile name.
  */
 if (hasAudio) {
-    keyComponents["audio sample rate"] = sampleRate
-    keyComponents["audio bit depth"] = audioBitDepth
-    keyComponents["audio channels"] = channels
+    keyComponents['audio sample rate'] = sampleRate
+    keyComponents['audio bit depth'] = audioBitDepth
+    keyComponents['audio channels'] = channels
 }
 
 def missingComponents = keyComponents.findAll { name, value ->
-
-    value == null || value.toString().trim() == ""
-
+    value == null || value.toString().trim() == ''
 }.keySet()
 
 if (!missingComponents.isEmpty()) {
-
     logger.info(
-        "QC lookup key could not be built. Missing technical values: " +
-        missingComponents.join(", ")
+        'QC lookup key could not be built. Missing technical values: ' +
+        missingComponents.join(', ')
     )
 
-    return saveLookupResult("", "No Match")
+    return saveLookupResult('', 'No Match')
 }
-
 
 // =============================================================================
 // 16. BUILD THE EXACT BATON PROFILE LOOKUP KEY
@@ -701,33 +668,28 @@ if (!missingComponents.isEmpty()) {
 def lookupKey
 
 if (hasAudio) {
-
-    lookupKey = "MAMs_" + [
+    lookupKey = 'MAMs_' + [
         wrapper,
-        width + "x" + height,
+        width + 'x' + height,
         videoCodec,
         fps,
         aspectRatio,
         videoBitDepth,
         audioCodec,
-        sampleRate + "." + audioBitDepth,
+        sampleRate + '.' + audioBitDepth,
         channels
-    ].join("_")
-
+    ].join('_')
 } else {
-
-    lookupKey = "MAMs_" + [
+    lookupKey = 'MAMs_' + [
         wrapper,
-        width + "x" + height,
+        width + 'x' + height,
         videoCodec,
         fps,
         aspectRatio,
         videoBitDepth,
-        "MOS"
-    ].join("_")
+        'MOS'
+    ].join('_')
 }
-
-
 
 // =============================================================================
 // 17. MATCH THE GENERATED KEY AGAINST THE KNOWN BATON PROFILES
@@ -736,18 +698,17 @@ if (hasAudio) {
 /*
  * The generated lookup key must match a configured profile name exactly.
  */
-def matchResult = knownBatonProfiles.contains(lookupKey) ? "Match" : "No Match"
+def matchResult = knownBatonProfiles.contains(lookupKey) ? 'Match' : 'No Match'
 
-logger.info("QC Lookup Key : " + lookupKey)
-logger.info("QC Match Result : " + matchResult)
+logger.info('QC Lookup Key : ' + lookupKey)
+logger.info('QC Match Result : ' + matchResult)
 
-if (matchResult == "No Match") {
+if (matchResult == 'No Match') {
     logger.info(
-        "Known Baton profiles: " +
-        knownBatonProfiles.join(" | ")
+        'Known Baton profiles: ' +
+        knownBatonProfiles.join(' | ')
     )
 }
-
 
 // =============================================================================
 // 18. SAVE BPM METADATA AND RETURN THE PROFILE OUTPUT RESULT
@@ -767,4 +728,3 @@ if (matchResult == "No Match") {
  * The returned value controls the two outputs configured on this Profile.
  */
 return saveLookupResult(lookupKey, matchResult)
-
