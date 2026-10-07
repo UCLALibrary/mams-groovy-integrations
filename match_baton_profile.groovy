@@ -1,8 +1,3 @@
-import com.tedial.bpmengine.connectors.utils.AddonContext
-import com.tedial.pam.commons.springboot.ApplicationContextAccessor
-import com.tedial.bpmengine.controllers.wip.WIPController
-import com.tedial.pam.bpmengineclients.ws.entity.RSFile
-
 /*
  * =============================================================================
  * UCLA BATON QC PROFILE LOOKUP KEY
@@ -137,594 +132,621 @@ def saveLookupResult = { lookupKey, matchResult ->
 }
 
 // =============================================================================
-// 3. GET THE CURRENT WIP CONTEXT
+// 3. SHARED TECHNICAL XML LOOKUP COMPUTATION
 // =============================================================================
+def buildLookupResult = { technicalXml ->
+    def fileNode = null
+    def videoTrack = null
+    def audioTrack = null
 
-String ai = WIPUtils.activity.id
+    // Helper closure to find the track with `trackName` under the FILE node with `wrapper`.
+    def findTrack = { files, wrapper, trackName ->
+        files.findResult { candidateFile ->
+            if (candidateFile?.WRAPPER?.text()?.trim() != wrapper) {
+                return null
+            }
 
-AddonContext addonContext = AddonContext.getContextByActInst(ai)
-WIPController wipController =
-    ApplicationContextAccessor.getBean(WIPController.class)
-
-// =============================================================================
-// 4. FIND AND READ THE TECHNICAL XML
-// =============================================================================
-
-// Different workflows or product versions may use different technical XML
-// filenames, so check the known alternatives in order.
-def possibleTechnicalFiles = [
-    'technical.xml',
-    'WIP_TECHNICAL.xml',
-    'wip_technical.xml'
-]
-
-RSFile technicalFile = null
-
-possibleTechnicalFiles.each { fileName ->
-    if (technicalFile == null) {
-        try {
-            technicalFile = wipController.findFileByName(ai, fileName)
-        } catch (Exception ignored) {
-        // File not found under this name. Continue with the next one.
+            def tracks = candidateFile?.TRACKS?."$trackName"
+            return (tracks != null && tracks.size() > 0) ? tracks[0] : null
         }
     }
-}
 
-if (technicalFile == null) {
-    logger.info(
-        'QC lookup key could not be built. No technical XML file found.'
-    )
-
-    return saveLookupResult('', 'No Match')
-}
-
-String technicalXmlString = wipController.getFileContentAsString(
-    ai,
-    technicalFile.getFileId()
-)
-
-def technicalXml =
-    new XmlSlurper(false, false).parseText(technicalXmlString)
-
-// =============================================================================
-// 5. SELECT THE FILE, VIDEO TRACK AND AUDIO TRACK USED FOR THE KEY
-// =============================================================================
-// Initialize variables
-def fileNode = null
-def videoTrack = null
-def audioTrack = null
-
-// Helper closure to find the track with `trackName` under the FILE node with `wrapper`.
-def findTrack = { files, wrapper, trackName ->
-    files.findResult { candidateFile ->
-        if (candidateFile?.WRAPPER?.text()?.trim() != wrapper) {
-            return null
-        }
-
-        def tracks = candidateFile?.TRACKS?."$trackName"
-        return (tracks != null && tracks.size() > 0) ? tracks[0] : null
-    }
-}
-
-// Check that there is at least one FILE node in the technical XML.
-def fileNodes = technicalXml.ASSET?.TECHNICAL?.FILE
-if (fileNodes == null || fileNodes.size() == 0) {
-    logger.info(
-        'QC lookup key could not be built. No FILE node found in technical XML.'
-    )
-
-    return saveLookupResult('', 'No Match')
-}
-
-// MXF packages have multiple FILE nodes, so we need to find the right ones.
-// Otherwise, we can take the first FILE node,
-// and use the first VIDEO_TRACK and AUDIO_TRACK found under FILE.TRACKS.
-def isMxf = fileNodes.any { file -> file?.WRAPPER?.text()?.trim() == 'MXF-Atom' }
-
-if (isMxf) {
-    // TODO: Improve fileNode and track selection logic.
-    //
-    // The XML for MXF packages contains multiple FILE nodes,
-    // one of which should contain a VIDEO_TRACK,
-    // and another of which should contain an AUDIO_TRACK.
-    // Since the tracks come from different FILE nodes,
-    // we should assign `videoFileNode` and `audioFileNode` separately,
-    // rather than assigning fileNode as the first FILE node with WRAPPER "MXF-Atom".
-    // Then we should check that the WRAPPER values both equal "MXF-Atom"
-    // and their @NAME attributes both end in `.mxf`.
-    // Currently, fileNode is only used in the params for `normaliseWrapper` below,
-    // to access WRAPPER and @NAME values, but this could be revised.
-    fileNode = fileNodes.find { file -> file?.WRAPPER?.text()?.trim() == 'MXF-Atom' }
-    // Now find the VIDEO_TRACK and AUDIO_TRACK under their respective FILE nodes with WRAPPER "MXF-Atom".
-    videoTrack = findTrack(fileNodes, 'MXF-Atom', 'VIDEO_TRACK')
-    audioTrack = findTrack(fileNodes, 'MXF-Atom', 'AUDIO_TRACK')
-} else {
-    // Otherwise, take the first FILE node and the first VIDEO_TRACK and AUDIO_TRACK under it.
-    fileNode = fileNodes[0]
-    videoTrack = fileNode.TRACKS?.VIDEO_TRACK?.size() > 0 ? fileNode.TRACKS.VIDEO_TRACK[0] : null
-    audioTrack = fileNode.TRACKS?.AUDIO_TRACK?.size() > 0 ? fileNode.TRACKS.AUDIO_TRACK[0] : null
-}
-
-if (videoTrack == null || videoTrack.size() == 0) {
-    logger.info(
-        'QC lookup key could not be built. No VIDEO_TRACK found.'
-    )
-
-    return saveLookupResult('', 'No Match')
-}
-
-/*
- * The audio channel value in the profile name represents the first audio
- * track, not the total number of channels across every audio track.
- *
- * For example, an asset containing several mono AUDIO_TRACK elements still
- * generates 1.0 from the first AUDIO_TRACK.
- */
-
-// =============================================================================
-// 6. GENERAL XML VALUE HELPER
-// =============================================================================
-
-def textValue = { node ->
-    return node != null && node.size() > 0
-        ? node.text().trim()
-        : ''
-}
-
-// =============================================================================
-// 6A. CONTAINER WRAPPER NORMALISATION
-// =============================================================================
-
-/*
- * Technical analysis may describe a QuickTime MOV container using different
- * wrapper values.
- *
- * UCLA's Baton profile naming convention uses QT.
- *
- * QUICKTIME and QT are therefore normalised to QT.
- *
- * Some MOV files are analysed with WRAPPER=MPEG-4. In that case, the FILE
- * NAME attribute is checked. If the analysed source filename ends in .mov,
- * MPEG-4 is normalised to QT.
- *
- * Genuine MPEG-4 files, such as .mp4 files, are left as MPEG-4.
- *
- * Other wrapper values are returned unchanged so unsupported or new values
- * remain visible in the generated No Match lookup key.
- */
-def normaliseWrapper = { wrapper, fileName ->
-    def cleanWrapper =
-        wrapper != null ? wrapper.trim().toUpperCase() : ''
-
-    def cleanFileName =
-        fileName != null ? fileName.trim().toLowerCase() : ''
-
-    if (cleanWrapper == 'QT' || cleanWrapper == 'QUICKTIME') {
-        return 'QT'
+    // Check that there is at least one FILE node in the technical XML.
+    def fileNodes = technicalXml.ASSET?.TECHNICAL?.FILE
+    if (fileNodes == null || fileNodes.size() == 0) {
+        return [
+            lookupKey: '',
+            matchResult: 'No Match',
+            message: 'No FILE node found in technical XML.'
+        ]
     }
 
-    if (cleanWrapper == 'MPEG-4' && cleanFileName.endsWith('.mov')) {
-        return 'QT'
+    // MXF packages have multiple FILE nodes, so we need to find the right ones.
+    // Otherwise, we can take the first FILE node,
+    // and use the first VIDEO_TRACK and AUDIO_TRACK found under FILE.TRACKS.
+    def isMxf = fileNodes.any { file -> file?.WRAPPER?.text()?.trim() == 'MXF-Atom' }
+
+    if (isMxf) {
+        // TODO: Improve fileNode and track selection logic.
+        //
+        // The XML for MXF packages contains multiple FILE nodes,
+        // one of which should contain a VIDEO_TRACK,
+        // and another of which should contain an AUDIO_TRACK.
+        // Since the tracks come from different FILE nodes,
+        // we should assign `videoFileNode` and `audioFileNode` separately,
+        // rather than assigning fileNode as the first FILE node with WRAPPER "MXF-Atom".
+        // Then we should check that the WRAPPER values both equal "MXF-Atom"
+        // and their @NAME attributes both end in `.mxf`.
+        // Currently, fileNode is only used in the params for `normaliseWrapper` below,
+        // to access WRAPPER and @NAME values, but this could be revised.
+        fileNode = fileNodes.find { file -> file?.WRAPPER?.text()?.trim() == 'MXF-Atom' }
+        // Now find the VIDEO_TRACK and AUDIO_TRACK under their respective FILE nodes with WRAPPER "MXF-Atom".
+        videoTrack = findTrack(fileNodes, 'MXF-Atom', 'VIDEO_TRACK')
+        audioTrack = findTrack(fileNodes, 'MXF-Atom', 'AUDIO_TRACK')
+    } else {
+        // Otherwise, take the first FILE node and the first VIDEO_TRACK and AUDIO_TRACK under it.
+        fileNode = fileNodes[0]
+        videoTrack = fileNode.TRACKS?.VIDEO_TRACK?.size() > 0 ? fileNode.TRACKS.VIDEO_TRACK[0] : null
+        audioTrack = fileNode.TRACKS?.AUDIO_TRACK?.size() > 0 ? fileNode.TRACKS.AUDIO_TRACK[0] : null
     }
 
-    if (cleanWrapper == 'MXF-ATOM' && cleanFileName.endsWith('.mxf')) {
-        return 'MXF'
-    }
-
-    return cleanWrapper
-}
-
-// =============================================================================
-// 7. VIDEO CODEC NORMALISATION
-// =============================================================================
-
-// Keys are values returned by technical analysis.
-// Values are the exact labels used in UCLA's Baton profile names.
-def videoCodecMappings = [
-    'PRORES_422_HQ': '422HQ',
-    'V210'         : 'V210',
-    '2VUY'         : '2VUY',
-    'PRORES_4444'  : '4444',
-    'BGR24'        : 'RGB',
-    'DVCPRO'       : 'DV'
-]
-
-def normaliseVideoCodec = { codec ->
-    def cleanCodec =
-        codec != null ? codec.trim().toUpperCase() : ''
-
-    if (cleanCodec == '') {
-        return ''
+    if (videoTrack == null || videoTrack.size() == 0) {
+        return [
+            lookupKey: '',
+            matchResult: 'No Match',
+            message: 'No VIDEO_TRACK found.'
+        ]
     }
 
     /*
-     * An unmapped codec is returned unchanged. The resulting No Match key
-     * will expose the new value so UCLA can add the required mapping.
+     * The audio channel value in the profile name represents the first audio
+     * track, not the total number of channels across every audio track.
+     *
+     * For example, an asset containing several mono AUDIO_TRACK elements still
+     * generates 1.0 from the first AUDIO_TRACK.
      */
-    return videoCodecMappings.containsKey(cleanCodec)
-        ? videoCodecMappings[cleanCodec]
-        : cleanCodec
-}
 
-// =============================================================================
-// 8. FRAME-RATE NORMALISATION
-// =============================================================================
+    // =============================================================================
+    // 6. GENERAL XML VALUE HELPER
+    // =============================================================================
 
-def normaliseEditRate = { editRate ->
-    if (editRate == null || editRate.trim() == '') {
-        return ''
+    def textValue = { node ->
+        return node != null && node.size() > 0
+            ? node.text().trim()
+            : ''
     }
 
-    def cleanRate = editRate.trim().replaceAll('\\s+', ' ')
-    def parts = cleanRate.split(' ')
+    // =============================================================================
+    // 6A. CONTAINER WRAPPER NORMALISATION
+    // =============================================================================
 
-    if (parts.size() == 2) {
-        def numerator = parts[0]
-        def denominator = parts[1]
+    /*
+     * Technical analysis may describe a QuickTime MOV container using different
+     * wrapper values.
+     *
+     * UCLA's Baton profile naming convention uses QT.
+     *
+     * QUICKTIME and QT are therefore normalised to QT.
+     *
+     * Some MOV files are analysed with WRAPPER=MPEG-4. In that case, the FILE
+     * NAME attribute is checked. If the analysed source filename ends in .mov,
+     * MPEG-4 is normalised to QT.
+     *
+     * Genuine MPEG-4 files, such as .mp4 files, are left as MPEG-4.
+     *
+     * Other wrapper values are returned unchanged so unsupported or new values
+     * remain visible in the generated No Match lookup key.
+     */
+    def normaliseWrapper = { wrapper, fileName ->
+        def cleanWrapper =
+            wrapper != null ? wrapper.trim().toUpperCase() : ''
 
-        // Exact values used by UCLA's Baton profile naming convention.
-        if (
-            (numerator == '24000' && denominator == '1001') ||
-            (numerator == '23976' && denominator == '1000')
-        ) {
-            return '2398fps'
+        def cleanFileName =
+            fileName != null ? fileName.trim().toLowerCase() : ''
+
+        if (cleanWrapper == 'QT' || cleanWrapper == 'QUICKTIME') {
+            return 'QT'
         }
 
-        if (
-            (numerator == '30000' && denominator == '1001') ||
-            (numerator == '29970' && denominator == '1000')
-        ) {
-            return '2997fps'
+        if (cleanWrapper == 'MPEG-4' && cleanFileName.endsWith('.mov')) {
+            return 'QT'
         }
 
-        if (
-            (numerator == '60000' && denominator == '1001') ||
-            (numerator == '59940' && denominator == '1000')
-        ) {
-            return '5994fps'
+        if (cleanWrapper == 'MXF-ATOM' && cleanFileName.endsWith('.mxf')) {
+            return 'MXF'
         }
 
-        if (denominator == '1') {
-            return numerator + 'fps'
+        return cleanWrapper
+    }
+
+    // =============================================================================
+    // 7. VIDEO CODEC NORMALISATION
+    // =============================================================================
+
+    // Keys are values returned by technical analysis.
+    // Values are the exact labels used in UCLA's Baton profile names.
+    def videoCodecMappings = [
+        'PRORES_422_HQ': '422HQ',
+        'V210'         : 'V210',
+        '2VUY'         : '2VUY',
+        'PRORES_4444'  : '4444',
+        'BGR24'        : 'RGB',
+        'DVCPRO'       : 'DV'
+    ]
+
+    def normaliseVideoCodec = { codec ->
+        def cleanCodec =
+            codec != null ? codec.trim().toUpperCase() : ''
+
+        if (cleanCodec == '') {
+            return ''
         }
 
-        BigDecimal n = new BigDecimal(numerator)
-        BigDecimal d = new BigDecimal(denominator)
+        /*
+         * An unmapped codec is returned unchanged. The resulting No Match key
+         * will expose the new value so UCLA can add the required mapping.
+         */
+        return videoCodecMappings.containsKey(cleanCodec)
+            ? videoCodecMappings[cleanCodec]
+            : cleanCodec
+    }
 
-        if (d.compareTo(BigDecimal.ZERO) != 0) {
-            BigDecimal calculatedFps =
-                n.divide(d, 6, BigDecimal.ROUND_HALF_UP)
+    // =============================================================================
+    // 8. FRAME-RATE NORMALISATION
+    // =============================================================================
 
-            def fpsText =
-                calculatedFps.stripTrailingZeros().toPlainString()
+    def normaliseEditRate = { editRate ->
+        if (editRate == null || editRate.trim() == '') {
+            return ''
+        }
 
-            if (fpsText == '23.976' || fpsText == '23.98') {
+        def cleanRate = editRate.trim().replaceAll('\\s+', ' ')
+        def parts = cleanRate.split(' ')
+
+        if (parts.size() == 2) {
+            def numerator = parts[0]
+            def denominator = parts[1]
+
+            // Exact values used by UCLA's Baton profile naming convention.
+            if (
+                (numerator == '24000' && denominator == '1001') ||
+                (numerator == '23976' && denominator == '1000')
+            ) {
                 return '2398fps'
             }
 
-            if (fpsText == '29.97') {
+            if (
+                (numerator == '30000' && denominator == '1001') ||
+                (numerator == '29970' && denominator == '1000')
+            ) {
                 return '2997fps'
             }
 
-            if (fpsText == '59.94') {
+            if (
+                (numerator == '60000' && denominator == '1001') ||
+                (numerator == '59940' && denominator == '1000')
+            ) {
                 return '5994fps'
             }
 
-            return fpsText.replace('.', '') + 'fps'
+            if (denominator == '1') {
+                return numerator + 'fps'
+            }
+
+            BigDecimal n = new BigDecimal(numerator)
+            BigDecimal d = new BigDecimal(denominator)
+
+            if (d.compareTo(BigDecimal.ZERO) != 0) {
+                BigDecimal calculatedFps =
+                    n.divide(d, 6, BigDecimal.ROUND_HALF_UP)
+
+                def fpsText =
+                    calculatedFps.stripTrailingZeros().toPlainString()
+
+                if (fpsText == '23.976' || fpsText == '23.98') {
+                    return '2398fps'
+                }
+
+                if (fpsText == '29.97') {
+                    return '2997fps'
+                }
+
+                if (fpsText == '59.94') {
+                    return '5994fps'
+                }
+
+                return fpsText.replace('.', '') + 'fps'
+            }
+        }
+
+        if (cleanRate == '29.97') {
+            return '2997fps'
+        }
+
+        if (cleanRate == '23.98' || cleanRate == '23.976') {
+            return '2398fps'
+        }
+
+        if (cleanRate == '59.94') {
+            return '5994fps'
+        }
+
+        return cleanRate
+            .replace('.', '')
+            .replaceAll('\\s+', '_') + 'fps'
+    }
+
+    // =============================================================================
+    // 9. ASPECT-RATIO NORMALISATION
+    // =============================================================================
+
+    /*
+     * Technical analysis may return aspect ratios in colon notation, while
+     * UCLA's Baton profile naming convention uses full stops.
+     *
+     * Examples:
+     *
+     * 4:3   -> 4.3
+     * 16:9  -> 16.9
+     *
+     * Some 720x486 2VUY media is analysed as 40:27. UCLA's Baton profile naming
+     * convention represents this specific format as 3.2, so it requires an
+     * explicit mapping.
+     *
+     * Any aspect ratio not listed in the mapping is returned with the colon
+     * replaced by a full stop.
+     */
+    def aspectRatioMappings = [
+        '40:27': '3.2',
+        '2048:1485': '1.379',
+        '256:135': '1.89'
+    ]
+
+    def normaliseAspectRatio = { aspectRatio, wrapper ->
+        def cleanAspectRatio =
+            aspectRatio != null ? aspectRatio.trim() : ''
+
+        if (cleanAspectRatio == '') {
+            return ''
+        }
+
+        if (wrapper == 'MXF' && cleanAspectRatio == '256:135') {
+            return '1.9'
+        }
+
+        if (aspectRatioMappings.containsKey(cleanAspectRatio)) {
+            return aspectRatioMappings[cleanAspectRatio]
+        }
+
+        return cleanAspectRatio.replace(':', '.')
+    }
+
+    // =============================================================================
+    // 10. VIDEO BIT-DEPTH NORMALISATION
+    // =============================================================================
+
+    /*
+     * BITS_PER_PIXEL cannot always be used directly as video bit depth.
+     *
+     * In the supplied 2VUY files, analysis reports BITS_PER_PIXEL=16 because the
+     * value describes packed pixel storage. UCLA's Baton profile expects 8bit.
+     *
+     * Codec-specific rules take priority. Other codecs fall back to the analysed
+     * BITS_PER_PIXEL value.
+     */
+    def videoBitDepthMappings = [
+        '2VUY': '8bit',
+        'DVCPRO': '8bit',
+        'DV': '8bit'
+    ]
+
+    def normaliseVideoBitDepth = { sourceCodec, bitsPerPixel ->
+        def cleanCodec =
+            sourceCodec != null ? sourceCodec.trim().toUpperCase() : ''
+
+        if (videoBitDepthMappings.containsKey(cleanCodec)) {
+            return videoBitDepthMappings[cleanCodec]
+        }
+
+        def cleanBits =
+            bitsPerPixel != null ? bitsPerPixel.trim() : ''
+
+        return cleanBits != ''
+            ? cleanBits + 'bit'
+            : ''
+    }
+
+    // =============================================================================
+    // 11. AUDIO SAMPLE-RATE NORMALISATION
+    // =============================================================================
+
+    def normaliseSampleRate = { audioEditRate ->
+        if (audioEditRate == null || audioEditRate.trim() == '') {
+            return ''
+        }
+
+        def parts = audioEditRate.trim().split('\\s+')
+        BigDecimal hz = new BigDecimal(parts[0])
+
+        // Baton profile names express 48000 Hz as 48.
+        return hz
+            .divide(
+                new BigDecimal('1000'),
+                0,
+                BigDecimal.ROUND_HALF_UP
+            )
+            .toPlainString()
+    }
+
+    // =============================================================================
+    // 12. AUDIO CHANNEL NORMALISATION
+    // =============================================================================
+
+    def normaliseChannels = { channels ->
+        if (channels == null || channels.trim() == '') {
+            return ''
+        }
+
+        return channels.trim() + '.0'
+    }
+
+    // =============================================================================
+    // 13. READ AND NORMALISE THE VIDEO VALUES
+    // =============================================================================
+
+    def wrapper = normaliseWrapper(
+        textValue(fileNode.WRAPPER),
+        fileNode.@NAME.text()
+    )
+
+    def width =
+        textValue(videoTrack.VIDEO_SIZE_WIDTH)
+
+    def height =
+        textValue(videoTrack.VIDEO_SIZE_HEIGHT)
+
+    def sourceVideoCodec =
+        textValue(videoTrack.VIDEO_CODEC)
+
+    def videoCodec =
+        normaliseVideoCodec(sourceVideoCodec)
+
+    def fps =
+        normaliseEditRate(textValue(videoTrack.EDIT_RATE))
+
+    def aspectRatio =
+        normaliseAspectRatio(textValue(videoTrack.ASPECT_RATIO), wrapper)
+
+    def videoBitDepth = normaliseVideoBitDepth(
+        sourceVideoCodec,
+        textValue(videoTrack.BITS_PER_PIXEL)
+    )
+
+    // =============================================================================
+    // 14. READ AND NORMALISE THE AUDIO VALUES
+    // =============================================================================
+
+    def audioCodec
+    def sampleRate
+    def audioBitDepth
+    def channels
+
+    def hasAudio =
+        audioTrack != null && audioTrack.size() > 0
+
+    if (hasAudio) {
+        audioCodec =
+            textValue(audioTrack.AUDIO_CODEC).toUpperCase()
+
+        sampleRate =
+            normaliseSampleRate(textValue(audioTrack.EDIT_RATE))
+
+        audioBitDepth =
+            textValue(audioTrack.BITS_PER_AUDIO_SAMPLE)
+
+        channels =
+            normaliseChannels(
+                textValue(audioTrack.AUDIO_CHANNELS_PER_TRACK)
+            )
+    } else {
+        /*
+         * UCLA Baton profiles use MOS as the final component when the
+         * source media contains no audio.
+         *
+         * No sample rate, audio bit depth or channel values are appended
+         * after MOS.
+         *
+         * Example:
+         * MAMs QT_2048x1556_4444_18fps_4.3_12bit_MOS
+         */
+        audioCodec = 'MOS'
+        sampleRate = ''
+        audioBitDepth = ''
+        channels = ''
+    }
+
+    // =============================================================================
+    // 15. VALIDATE REQUIRED COMPONENTS BEFORE BUILDING THE KEY
+    // =============================================================================
+
+    def keyComponents = [
+        'container'         : wrapper,
+        'resolution width'  : width,
+        'resolution height' : height,
+        'video codec'       : videoCodec,
+        'frame rate'        : fps,
+        'aspect ratio'      : aspectRatio,
+        'video bit depth'   : videoBitDepth,
+        'audio format'      : audioCodec
+    ]
+
+    /*
+     * Audio-specific technical values are only required when the source
+     * actually contains an audio track.
+     *
+     * For media without audio, MOS is sufficient and becomes the final
+     * component of the Baton profile name.
+     */
+    if (hasAudio) {
+        keyComponents['audio sample rate'] = sampleRate
+        keyComponents['audio bit depth'] = audioBitDepth
+        keyComponents['audio channels'] = channels
+    }
+
+    def missingComponents = keyComponents.findAll { name, value ->
+        value == null || value.toString().trim() == ''
+    }.keySet()
+
+    if (!missingComponents.isEmpty()) {
+        return [
+            lookupKey: '',
+            matchResult: 'No Match',
+            message: 'Missing technical values: ' + missingComponents.join(', ')
+        ]
+    }
+
+    // =============================================================================
+    // 16. BUILD THE EXACT BATON PROFILE LOOKUP KEY
+    // =============================================================================
+
+    def lookupKey
+
+    if (hasAudio) {
+        lookupKey = 'MAMs_' + [
+            wrapper,
+            width + 'x' + height,
+            videoCodec,
+            fps,
+            aspectRatio,
+            videoBitDepth,
+            audioCodec,
+            sampleRate + '.' + audioBitDepth,
+            channels
+        ].join('_')
+    } else {
+        lookupKey = 'MAMs_' + [
+            wrapper,
+            width + 'x' + height,
+            videoCodec,
+            fps,
+            aspectRatio,
+            videoBitDepth,
+            'MOS'
+        ].join('_')
+    }
+
+    // =============================================================================
+    // 17. MATCH THE GENERATED KEY AGAINST THE KNOWN BATON PROFILES
+    // =============================================================================
+
+    /*
+     * The generated lookup key must match a configured profile name exactly.
+     */
+    def matchResult = knownBatonProfiles.contains(lookupKey) ? 'Match' : 'No Match'
+    return [lookupKey: lookupKey, matchResult: matchResult, message: '']
+}
+
+// =============================================================================
+// 18. RUN FIXTURE TESTS OR SAVE THE PRODUCTION RESULT
+// =============================================================================
+def runTests = {
+    def tests = [
+        [
+            fixture: 'fixtures/test_mxf_package.xml',
+            expectedLookupKey:
+                'MAMs_MXF_2048x1080_JPEG2000_24fps_1.9_12bit_PCM_48.24_6.0',
+            expectedMatchResult: 'Match'
+        ],
+        [
+            fixture: 'fixtures/test_audio_only.xml',
+            expectedLookupKey: '',
+            expectedMatchResult: 'No Match'
+        ]
+    ]
+
+    def failedTests = []
+    def recordFailure = { test, message ->
+        println "FAIL: ${test.fixture} (${message})"
+        failedTests << test.fixture
+    }
+
+    tests.each { test ->
+        def fixture = java.nio.file.Paths.get(test.fixture)
+
+        if (!java.nio.file.Files.isRegularFile(fixture)) {
+            println "FAIL: ${test.fixture} (fixture not found)"
+            failedTests << test.fixture
+            return
+        }
+
+        try {
+            def technicalXml = new groovy.xml.XmlSlurper(false, false).parseText(
+                java.nio.file.Files.readString(fixture)
+            )
+            def result = buildLookupResult(technicalXml)
+
+            if (
+                result.lookupKey == test.expectedLookupKey &&
+                result.matchResult == test.expectedMatchResult
+            ) {
+                println "PASS: ${test.fixture}"
+            } else {
+                println "FAIL: ${test.fixture}"
+                println "  expected key:    ${test.expectedLookupKey}"
+                println "  actual key:      ${result.lookupKey}"
+                println "  expected result: ${test.expectedMatchResult}"
+                println "  actual result:   ${result.matchResult}"
+                failedTests << test.fixture
+            }
+        } catch (java.io.IOException e) {
+            recordFailure(test, e.message)
+        } catch (org.xml.sax.SAXException e) {
+            recordFailure(test, e.message)
+        } catch (NumberFormatException e) {
+            recordFailure(test, e.message)
         }
     }
 
-    if (cleanRate == '29.97') {
-        return '2997fps'
-    }
-
-    if (cleanRate == '23.98' || cleanRate == '23.976') {
-        return '2398fps'
-    }
-
-    if (cleanRate == '59.94') {
-        return '5994fps'
-    }
-
-    return cleanRate
-        .replace('.', '')
-        .replaceAll('\\s+', '_') + 'fps'
-}
-
-// =============================================================================
-// 9. ASPECT-RATIO NORMALISATION
-// =============================================================================
-
-/*
- * Technical analysis may return aspect ratios in colon notation, while
- * UCLA's Baton profile naming convention uses full stops.
- *
- * Examples:
- *
- * 4:3   -> 4.3
- * 16:9  -> 16.9
- *
- * Some 720x486 2VUY media is analysed as 40:27. UCLA's Baton profile naming
- * convention represents this specific format as 3.2, so it requires an
- * explicit mapping.
- *
- * Any aspect ratio not listed in the mapping is returned with the colon
- * replaced by a full stop.
- */
-def aspectRatioMappings = [
-    '40:27': '3.2',
-    '2048:1485': '1.379',
-    '256:135': '1.89'
-]
-
-def normaliseAspectRatio = { aspectRatio, wrapper ->
-    def cleanAspectRatio =
-        aspectRatio != null ? aspectRatio.trim() : ''
-
-    if (cleanAspectRatio == '') {
-        return ''
-    }
-
-    if (wrapper == 'MXF' && cleanAspectRatio == '256:135') {
-        return '1.9'
-    }
-
-    if (aspectRatioMappings.containsKey(cleanAspectRatio)) {
-        return aspectRatioMappings[cleanAspectRatio]
-    }
-
-    return cleanAspectRatio.replace(':', '.')
-}
-
-// =============================================================================
-// 10. VIDEO BIT-DEPTH NORMALISATION
-// =============================================================================
-
-/*
- * BITS_PER_PIXEL cannot always be used directly as video bit depth.
- *
- * In the supplied 2VUY files, analysis reports BITS_PER_PIXEL=16 because the
- * value describes packed pixel storage. UCLA's Baton profile expects 8bit.
- *
- * Codec-specific rules take priority. Other codecs fall back to the analysed
- * BITS_PER_PIXEL value.
- */
-def videoBitDepthMappings = [
-    '2VUY': '8bit',
-    'DVCPRO': '8bit',
-    'DV': '8bit'
-]
-
-def normaliseVideoBitDepth = { sourceCodec, bitsPerPixel ->
-    def cleanCodec =
-        sourceCodec != null ? sourceCodec.trim().toUpperCase() : ''
-
-    if (videoBitDepthMappings.containsKey(cleanCodec)) {
-        return videoBitDepthMappings[cleanCodec]
-    }
-
-    def cleanBits =
-        bitsPerPixel != null ? bitsPerPixel.trim() : ''
-
-    return cleanBits != ''
-        ? cleanBits + 'bit'
-        : ''
-}
-
-// =============================================================================
-// 11. AUDIO SAMPLE-RATE NORMALISATION
-// =============================================================================
-
-def normaliseSampleRate = { audioEditRate ->
-    if (audioEditRate == null || audioEditRate.trim() == '') {
-        return ''
-    }
-
-    def parts = audioEditRate.trim().split('\\s+')
-    BigDecimal hz = new BigDecimal(parts[0])
-
-    // Baton profile names express 48000 Hz as 48.
-    return hz
-        .divide(
-            new BigDecimal('1000'),
-            0,
-            BigDecimal.ROUND_HALF_UP
+    if (!failedTests.isEmpty()) {
+        throw new AssertionError(
+            'Fixture tests failed: ' + failedTests.join(', ')
         )
-        .toPlainString()
+    }
 }
 
-// =============================================================================
-// 12. AUDIO CHANNEL NORMALISATION
-// =============================================================================
+def runProduction = { technicalXml ->
+    def result = buildLookupResult(technicalXml)
 
-def normaliseChannels = { channels ->
-    if (channels == null || channels.trim() == '') {
-        return ''
+    if (result.message) {
+        logger.info(
+            'QC lookup key could not be built. ' + result.message
+        )
+    } else {
+        logger.info('QC Lookup Key : ' + result.lookupKey)
+        logger.info('QC Match Result : ' + result.matchResult)
+
+        if (result.matchResult == 'No Match') {
+            logger.info(
+                'Known Baton profiles: ' +
+                knownBatonProfiles.join(' | ')
+            )
+        }
     }
 
-    return channels.trim() + '.0'
+    return saveLookupResult(result.lookupKey, result.matchResult)
 }
 
-// =============================================================================
-// 13. READ AND NORMALISE THE VIDEO VALUES
-// =============================================================================
+def technicalXml
 
-def wrapper = normaliseWrapper(
-    textValue(fileNode.WRAPPER),
-    fileNode.@NAME.text()
-)
+try {
+    technicalXml = WIPUtils.technical()
+} catch (groovy.lang.MissingPropertyException e) {
+    if (e.property != 'WIPUtils') {
+        throw e
+    }
 
-def width =
-    textValue(videoTrack.VIDEO_SIZE_WIDTH)
-
-def height =
-    textValue(videoTrack.VIDEO_SIZE_HEIGHT)
-
-def sourceVideoCodec =
-    textValue(videoTrack.VIDEO_CODEC)
-
-def videoCodec =
-    normaliseVideoCodec(sourceVideoCodec)
-
-def fps =
-    normaliseEditRate(textValue(videoTrack.EDIT_RATE))
-
-def aspectRatio =
-    normaliseAspectRatio(textValue(videoTrack.ASPECT_RATIO), wrapper)
-
-def videoBitDepth = normaliseVideoBitDepth(
-    sourceVideoCodec,
-    textValue(videoTrack.BITS_PER_PIXEL)
-)
-
-// =============================================================================
-// 14. READ AND NORMALISE THE AUDIO VALUES
-// =============================================================================
-
-def audioCodec
-def sampleRate
-def audioBitDepth
-def channels
-
-def hasAudio =
-    audioTrack != null && audioTrack.size() > 0
-
-if (hasAudio) {
-    audioCodec =
-        textValue(audioTrack.AUDIO_CODEC).toUpperCase()
-
-    sampleRate =
-        normaliseSampleRate(textValue(audioTrack.EDIT_RATE))
-
-    audioBitDepth =
-        textValue(audioTrack.BITS_PER_AUDIO_SAMPLE)
-
-    channels =
-        normaliseChannels(
-            textValue(audioTrack.AUDIO_CHANNELS_PER_TRACK)
-        )
-} else {
-    /*
-     * UCLA Baton profiles use MOS as the final component when the
-     * source media contains no audio.
-     *
-     * No sample rate, audio bit depth or channel values are appended
-     * after MOS.
-     *
-     * Example:
-     * MAMs QT_2048x1556_4444_18fps_4.3_12bit_MOS
-     */
-    audioCodec = 'MOS'
-    sampleRate = ''
-    audioBitDepth = ''
-    channels = ''
+    println 'WIPUtils is unavailable. Running in test mode.'
+    return runTests()
 }
 
-// =============================================================================
-// 15. VALIDATE REQUIRED COMPONENTS BEFORE BUILDING THE KEY
-// =============================================================================
-
-def keyComponents = [
-    'container'         : wrapper,
-    'resolution width'  : width,
-    'resolution height' : height,
-    'video codec'       : videoCodec,
-    'frame rate'        : fps,
-    'aspect ratio'      : aspectRatio,
-    'video bit depth'   : videoBitDepth,
-    'audio format'      : audioCodec
-]
-
-/*
- * Audio-specific technical values are only required when the source
- * actually contains an audio track.
- *
- * For media without audio, MOS is sufficient and becomes the final
- * component of the Baton profile name.
- */
-if (hasAudio) {
-    keyComponents['audio sample rate'] = sampleRate
-    keyComponents['audio bit depth'] = audioBitDepth
-    keyComponents['audio channels'] = channels
-}
-
-def missingComponents = keyComponents.findAll { name, value ->
-    value == null || value.toString().trim() == ''
-}.keySet()
-
-if (!missingComponents.isEmpty()) {
-    logger.info(
-        'QC lookup key could not be built. Missing technical values: ' +
-        missingComponents.join(', ')
-    )
-
-    return saveLookupResult('', 'No Match')
-}
-
-// =============================================================================
-// 16. BUILD THE EXACT BATON PROFILE LOOKUP KEY
-// =============================================================================
-
-def lookupKey
-
-if (hasAudio) {
-    lookupKey = 'MAMs_' + [
-        wrapper,
-        width + 'x' + height,
-        videoCodec,
-        fps,
-        aspectRatio,
-        videoBitDepth,
-        audioCodec,
-        sampleRate + '.' + audioBitDepth,
-        channels
-    ].join('_')
-} else {
-    lookupKey = 'MAMs_' + [
-        wrapper,
-        width + 'x' + height,
-        videoCodec,
-        fps,
-        aspectRatio,
-        videoBitDepth,
-        'MOS'
-    ].join('_')
-}
-
-// =============================================================================
-// 17. MATCH THE GENERATED KEY AGAINST THE KNOWN BATON PROFILES
-// =============================================================================
-
-/*
- * The generated lookup key must match a configured profile name exactly.
- */
-def matchResult = knownBatonProfiles.contains(lookupKey) ? 'Match' : 'No Match'
-
-logger.info('QC Lookup Key : ' + lookupKey)
-logger.info('QC Match Result : ' + matchResult)
-
-if (matchResult == 'No Match') {
-    logger.info(
-        'Known Baton profiles: ' +
-        knownBatonProfiles.join(' | ')
-    )
-}
-
-// =============================================================================
-// 18. SAVE BPM METADATA AND RETURN THE PROFILE OUTPUT RESULT
-// =============================================================================
-
-/*
- * This saves:
- *
- * BPM:QC:LOOKUP_KEY
- * BPM:QC:MATCH_RESULT
- *
- * It then returns either:
- *
- * MATCH
- * NO_MATCH
- *
- * The returned value controls the two outputs configured on this Profile.
- */
-return saveLookupResult(lookupKey, matchResult)
+return runProduction(technicalXml)
