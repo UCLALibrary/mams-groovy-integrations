@@ -1,0 +1,151 @@
+<WIP_TECHNICAL>
+    <ASSET>
+        <OBJECTID></OBJECTID>
+        <MEDIAID>b2b41e68-2124-4f5b-b08e-74aed7b3974d</MEDIAID>
+        <TITLE>Meat market arrest</TITLE>
+        <TYPE>VIDEO</TYPE>
+        <TECHNICAL>
+            <FILE NAME="d816f1cd-ee1a-48bb-ad7c-a4b8e9a75318_video.mxf" FILE_ID="4">
+                <DISPLAY_NAME>MXF-Atom-JPEG2000</DISPLAY_NAME>
+                <WRAPPER>MXF-Atom</WRAPPER>
+                <FILENAME>15849</FILENAME>
+                <SOM>00:00:00:00</SOM>
+                <FIRST_PRESENTATION_TIME>0</FIRST_PRESENTATION_TIME>
+                <INTRINSIC_DURATION>29623</INTRINSIC_DURATION>
+                <INTRINSIC_DURATION_IN_SECONDS>1234.2916666666667</INTRINSIC_DURATION_IN_SECONDS>
+                <TRUNCATED>false</TRUNCATED>
+                <IMF>
+                    <ID>urn:uuid:d816f1cd-ee1a-48bb-ad7c-a4b8e9a75318</ID>
+                    <HASH>76AF30AD3599D9E20C60050FF5FE1AE65274F1A0</HASH>
+                    <TYPE>application/mxf</TYPE>
+                </IMF>
+                <TRACKS>
+                    <VIDEO_TRACK>
+                        <ORDER>0</ORDER>
+                        <DEFINITION>HD</DEFINITION>
+                        <VIDEO_CODEC>JPEG2000</VIDEO_CODEC>
+                        <CODEC_PROFILE>D-Cinema 2k</CODEC_PROFILE>
+                        <INTERFRAME_COMPRESS>1</INTERFRAME_COMPRESS>
+                        <COLOR_SPACE>XYZ</COLOR_SPACE>
+                        <SCAN_TYPE>Progressive</SCAN_TYPE>
+                        <BITRATE>209015422</BITRATE>
+                        <BITRATE_TYPE>CFR</BITRATE_TYPE>
+                        <BITS_PER_PIXEL>12</BITS_PER_PIXEL>
+                        <EDIT_RATE>24 1</EDIT_RATE>
+                        <AVERAGE_EDIT_RATE>24 1</AVERAGE_EDIT_RATE>
+                        <ASPECT_RATIO>256:135</ASPECT_RATIO>
+                        <VIDEO_SIZE_WIDTH>2048</VIDEO_SIZE_WIDTH>
+                        <VIDEO_SIZE_HEIGHT>1080</VIDEO_SIZE_HEIGHT>
+                        <VIDEO_DISPLAY_SIZE_WIDTH>2048</VIDEO_DISPLAY_SIZE_WIDTH>
+                        <VIDEO_DISPLAY_SIZE_HEIGHT>1080</VIDEO_DISPLAY_SIZE_HEIGHT>
+                        <VIDEO_DISPLAY_OFFSET_WIDTH>0</VIDEO_DISPLAY_OFFSET_WIDTH>
+                        <VIDEO_DISPLAY_OFFSET_HEIGHT>0</VIDEO_DISPLAY_OFFSET_HEIGHT>
+                        <ROTATION>0</ROTATION>
+                        <SIZE_GOP>1</SIZE_GOP>
+                        <CHROMA_SUBSAMPLING>4:4:4</CHROMA_SUBSAMPLING>
+                        <ORIGIN_VIDEO>0</ORIGIN_VIDEO>
+                        <VIDEO_LAYOUT>2D</VIDEO_LAYOUT>
+                        <VR_TYPE>NONE</VR_TYPE>
+                        <DYNAMIC_RANGE>SDR</DYNAMIC_RANGE>
+                        <DYNAMIC_RANGE_FORMAT>CRT</DYNAMIC_RANGE_FORMAT>
+                    </VIDEO_TRACK>
+                </TRACKS>
+            </FILE>
+            <FILE NAME="d816f1cd-ee1a-48bb-ad7c-a4b8e9a75318_video_proxy_4160_video_0_480p_dashinit.mp4" FILE_ID="5">
+                <DISPLAY_NAME>MP4DASH-H264</DISPLAY_NAME>
+                <WRAPPER>MP4DASH</WRAPPER>
+                <FILENAME>15859</FILENAME>
+                <SOM>00:00:00:00</SOM>
+                <FIRST_PRESENTATION_TIME>0</FIRST_PRESENTATION_TIME>
+                <INTRINSIC_DURATION>29623</INTRINSIC_DURATION>
+                <INTRINSIC_DURATION_IN_SECONDS>1234.2916259765625</INTRINSIC_DURATION_IN_SECONDS>
+                <DASH_EXTENSION><AdaptationSet startWithSAP="1" par="55:29" maxWidth="910" maxHeight="480" maxFrameRate="24" segmentAlignment="true" subsegmentAlignment="true" subsegmentStartsWithSAP="1" xmlns="urn:mpeg:dash:schema:mpd:2011"><Representation width="910" height="480" sar="2640:2639" frameRate="24" mimeType="video/mp4" codecs="avc1.64001F" id="1" bandwidth="537095"><BaseURL>d816f1cd-ee1a-48bb-ad7c-a4b8e9a75318_video_proxy_4160_video_0_480p_dashinit.mp4</BaseURL><SegmentBase indexRange="1687-9134" indexRangeExact="true"><Initialization range="0-938" /></SegmentBase></Representation></AdaptationSet></DASH_EXTENSION>
+                <TRUNCATED>false</TRUNCATED>
+                <TRACKS>
+                    <VIDEO_TRACK>
+                        <ORDER>0</ORDER>
+                        <DEFINITION>SD</DEFINITION>
+                        <VIDEO_CODEC>H264</VIDEO_CODEC>
+                        <CODEC_PROFILE>High@L3.1</CODEC_PROFILE>
+                        <INTERFRAME_COMPRESS>1</INTERFRAME_COMPRESS>
+                        <COLOR_SPACE>YUV</COLOR_SPACE>
+                        <SCAN_TYPE>Progressive</SCAN_TYPE>
+                        <BITRATE>537095</BITRATE>
+                        <BITRATE_TYPE>CBR</BITRATE_TYPE>
+                        <BITS_PER_PIXEL>8</BITS_PER_PIXEL>
+                        <EDIT_RATE>24 1</EDIT_RATE>
+                        <AVERAGE_EDIT_RATE>24 1</AVERAGE_EDIT_RATE>
+                        <EDIT_RATE_TYPE>CFR</EDIT_RATE_TYPE>
+                        <ASPECT_RATIO>55:29</ASPECT_RATIO>
+                        <VIDEO_SIZE_WIDTH>912</VIDEO_SIZE_WIDTH>
+                        <VIDEO_SIZE_HEIGHT>480</VIDEO_SIZE_HEIGHT>
+                        <VIDEO_DISPLAY_SIZE_WIDTH>910</VIDEO_DISPLAY_SIZE_WIDTH>
+                        <VIDEO_DISPLAY_SIZE_HEIGHT>480</VIDEO_DISPLAY_SIZE_HEIGHT>
+                        <VIDEO_DISPLAY_OFFSET_WIDTH>1</VIDEO_DISPLAY_OFFSET_WIDTH>
+                        <VIDEO_DISPLAY_OFFSET_HEIGHT>0</VIDEO_DISPLAY_OFFSET_HEIGHT>
+                        <ROTATION>0</ROTATION>
+                        <SIZE_GOP>1</SIZE_GOP>
+                        <CHROMA_SUBSAMPLING>4:2:0</CHROMA_SUBSAMPLING>
+                        <ORIGIN_VIDEO>0</ORIGIN_VIDEO>
+                        <VIDEO_LAYOUT>2D</VIDEO_LAYOUT>
+                        <VR_TYPE>NONE</VR_TYPE>
+                        <DYNAMIC_RANGE>SDR</DYNAMIC_RANGE>
+                        <DYNAMIC_RANGE_FORMAT>CRT</DYNAMIC_RANGE_FORMAT>
+                    </VIDEO_TRACK>
+                </TRACKS>
+            </FILE>
+            <FILE NAME="7da4cb7c-db8b-4da5-a699-97771f39b45c_audio.mxf" FILE_ID="1">
+                <DISPLAY_NAME>MXF-Atom-PCM</DISPLAY_NAME>
+                <WRAPPER>MXF-Atom</WRAPPER>
+                <FILENAME>15850</FILENAME>
+                <INTRINSIC_DURATION>59246000</INTRINSIC_DURATION>
+                <INTRINSIC_DURATION_IN_SECONDS>1234.2916666666667</INTRINSIC_DURATION_IN_SECONDS>
+                <TRUNCATED>false</TRUNCATED>
+                <IMF>
+                    <ID>urn:uuid:7da4cb7c-db8b-4da5-a699-97771f39b45c</ID>
+                    <HASH>7FEBA38C2725CA50D372AA9696ED8891F9738563</HASH>
+                    <TYPE>application/mxf</TYPE>
+                </IMF>
+                <TRACKS>
+                    <AUDIO_TRACK>
+                        <ORDER>1</ORDER>
+                        <AUDIO_CODEC>PCM</AUDIO_CODEC>
+                        <AUDIO_CHANNELS_PER_TRACK>6</AUDIO_CHANNELS_PER_TRACK>
+                        <BITRATE>1152000</BITRATE>
+                        <BITRATE_TYPE>CBR</BITRATE_TYPE>
+                        <EDIT_RATE>48000 1</EDIT_RATE>
+                        <BITS_PER_AUDIO_SAMPLE>24</BITS_PER_AUDIO_SAMPLE>
+                        <AUDIO_ENDIANESS>LITTLE_ENDIAN</AUDIO_ENDIANESS>
+                        <AUDIO_TYPE>UNKNOWN</AUDIO_TYPE>
+                        <AUDIO_LANGUAGE>und</AUDIO_LANGUAGE>
+                        <ORIGIN_AUDIO>0</ORIGIN_AUDIO>
+                    </AUDIO_TRACK>
+                </TRACKS>
+            </FILE>
+            <FILE NAME="d816f1cd-ee1a-48bb-ad7c-a4b8e9a75318_video_proxy_4160_audio_1_dashinit.mp4" FILE_ID="2">
+                <DISPLAY_NAME>MP4DASH-AAC</DISPLAY_NAME>
+                <WRAPPER>MP4DASH</WRAPPER>
+                <FILENAME>15863</FILENAME>
+                <INTRINSIC_DURATION>59245998</INTRINSIC_DURATION>
+                <INTRINSIC_DURATION_IN_SECONDS>1234.2916259765625</INTRINSIC_DURATION_IN_SECONDS>
+                <DASH_EXTENSION><AdaptationSet startWithSAP="1" segmentAlignment="true" subsegmentAlignment="true" subsegmentStartsWithSAP="1" xmlns="urn:mpeg:dash:schema:mpd:2011"><Representation audioSamplingRate="48000" mimeType="audio/mp4" codecs="mp4a.40.2" id="2" bandwidth="95529"><AudioChannelConfiguration schemeIdUri="urn:mpeg:dash:23003:3:audio_channel_configuration:2011" value="2" /><BaseURL>d816f1cd-ee1a-48bb-ad7c-a4b8e9a75318_video_proxy_4160_audio_1_dashinit.mp4</BaseURL><SegmentBase indexRange="1625-9072" indexRangeExact="true"><Initialization range="0-876" /></SegmentBase></Representation></AdaptationSet></DASH_EXTENSION>
+                <TRUNCATED>false</TRUNCATED>
+                <TRACKS>
+                    <AUDIO_TRACK>
+                        <ORDER>1</ORDER>
+                        <AUDIO_CODEC>AAC</AUDIO_CODEC>
+                        <AUDIO_CHANNELS_PER_TRACK>2</AUDIO_CHANNELS_PER_TRACK>
+                        <BITRATE>97616</BITRATE>
+                        <BITRATE_TYPE>CBR</BITRATE_TYPE>
+                        <EDIT_RATE>48000 1</EDIT_RATE>
+                        <BITS_PER_AUDIO_SAMPLE>0</BITS_PER_AUDIO_SAMPLE>
+                        <AUDIO_ENDIANESS>UNKNOWN</AUDIO_ENDIANESS>
+                        <AUDIO_TYPE>UNKNOWN</AUDIO_TYPE>
+                        <AUDIO_LANGUAGE>und</AUDIO_LANGUAGE>
+                        <ORIGIN_AUDIO>0.021333333333333333</ORIGIN_AUDIO>
+                    </AUDIO_TRACK>
+                </TRACKS>
+            </FILE>
+        </TECHNICAL>
+    </ASSET>
+</WIP_TECHNICAL>

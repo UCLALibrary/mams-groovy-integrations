@@ -1,0 +1,59 @@
+<WIP_TECHNICAL>
+    <ASSET>
+        <OBJECTID></OBJECTID>
+        <MEDIAID>69fef6f6-dce8-40aa-bbc8-5fab922021a2</MEDIAID>
+        <TITLE>Repeat performance</TITLE>
+        <TYPE>AUDIO</TYPE>
+        <TECHNICAL>
+            <FILE NAME="RepeatPerformance_Rest_mono_R1.wav" FILE_ID="21">
+                <DISPLAY_NAME>WAVE-PCM</DISPLAY_NAME>
+                <WRAPPER>WAVE</WRAPPER>
+                <FILENAME>14435</FILENAME>
+                <SOM>00:00:00:00</SOM>
+                <INTRINSIC_DURATION>29892261</INTRINSIC_DURATION>
+                <INTRINSIC_DURATION_IN_SECONDS>622.7554321289062</INTRINSIC_DURATION_IN_SECONDS>
+                <TRUNCATED>false</TRUNCATED>
+                <TRACKS>
+                    <AUDIO_TRACK>
+                        <ORDER>1</ORDER>
+                        <AUDIO_CODEC>PCM</AUDIO_CODEC>
+                        <AUDIO_CHANNELS_PER_TRACK>1</AUDIO_CHANNELS_PER_TRACK>
+                        <BITRATE>1152000</BITRATE>
+                        <BITRATE_TYPE>CBR</BITRATE_TYPE>
+                        <EDIT_RATE>48000 1</EDIT_RATE>
+                        <BITS_PER_AUDIO_SAMPLE>24</BITS_PER_AUDIO_SAMPLE>
+                        <AUDIO_ENDIANESS>LITTLE_ENDIAN</AUDIO_ENDIANESS>
+                        <AUDIO_TYPE>UNKNOWN</AUDIO_TYPE>
+                        <AUDIO_LANGUAGE>und</AUDIO_LANGUAGE>
+                        <ORIGIN_AUDIO>0</ORIGIN_AUDIO>
+                    </AUDIO_TRACK>
+                </TRACKS>
+            </FILE>
+            <FILE NAME="RepeatPerformance_Rest_mono_R1_proxy_3643_audio_0_dashinit.mp4" FILE_ID="22">
+                <DISPLAY_NAME>MP4DASH-AAC</DISPLAY_NAME>
+                <WRAPPER>MP4DASH</WRAPPER>
+                <FILENAME>14439</FILENAME>
+                <SOM>00:00:00:00</SOM>
+                <INTRINSIC_DURATION>29892240</INTRINSIC_DURATION>
+                <INTRINSIC_DURATION_IN_SECONDS>622.7550048828125</INTRINSIC_DURATION_IN_SECONDS>
+                <DASH_EXTENSION>&lt;AdaptationSet startWithSAP="1" segmentAlignment="true" subsegmentAlignment="true" subsegmentStartsWithSAP="1" xmlns="urn:mpeg:dash:schema:mpd:2011"&gt;&lt;Representation audioSamplingRate="48000" mimeType="audio/mp4" codecs="mp4a.40.2" id="1" bandwidth="95367"&gt;&lt;AudioChannelConfiguration schemeIdUri="urn:mpeg:dash:23003:3:audio_channel_configuration:2011" value="2" /&gt;&lt;BaseURL&gt;RepeatPerformance_Rest_mono_R1_proxy_3643_audio_0_dashinit.mp4&lt;/BaseURL&gt;&lt;SegmentBase indexRange="1299-5074" indexRangeExact="true"&gt;&lt;Initialization range="0-910" /&gt;&lt;/SegmentBase&gt;&lt;/Representation&gt;&lt;/AdaptationSet&gt;</DASH_EXTENSION>
+                <TRUNCATED>false</TRUNCATED>
+                <TRACKS>
+                    <AUDIO_TRACK>
+                        <ORDER>1</ORDER>
+                        <AUDIO_CODEC>AAC</AUDIO_CODEC>
+                        <AUDIO_CHANNELS_PER_TRACK>2</AUDIO_CHANNELS_PER_TRACK>
+                        <BITRATE>97467</BITRATE>
+                        <BITRATE_TYPE>VBR</BITRATE_TYPE>
+                        <EDIT_RATE>48000 1</EDIT_RATE>
+                        <BITS_PER_AUDIO_SAMPLE>0</BITS_PER_AUDIO_SAMPLE>
+                        <AUDIO_ENDIANESS>UNKNOWN</AUDIO_ENDIANESS>
+                        <AUDIO_TYPE>UNKNOWN</AUDIO_TYPE>
+                        <AUDIO_LANGUAGE>und</AUDIO_LANGUAGE>
+                        <ORIGIN_AUDIO>0.021333333333333333</ORIGIN_AUDIO>
+                    </AUDIO_TRACK>
+                </TRACKS>
+            </FILE>
+        </TECHNICAL>
+    </ASSET>
+</WIP_TECHNICAL>
