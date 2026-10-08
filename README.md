@@ -18,7 +18,7 @@ The project's directory is available within the container at `/home/groovy/proje
 
 ## Running code
 
-From within the dev container, you can run code using the `groovy` command. For example, `groovy HelloWorld.groovy` should print "Hello, World" to the console.
+From within the dev container, you can run code using the `groovy` command. For example, `groovy -version` should print the Groovy version to the console.
 
 Otherwise, run a program via docker compose. From the project directory:
 
@@ -35,3 +35,8 @@ $ WARNING: Using incubator modules: jdk.incubator.vector  <- This warning can be
 $ Groovy Version: 5.0.3 JVM: 25.0.1 Vendor: Eclipse Adoptium OS: Linux
 ``` 
 
+## match_baton_profile.groovy
+
+This script constructs a lookup key from XML inputs representing technical metadata of media assets in the MAMS to match against profiles active in UCLA's Baton media quality control system. The script is a step in an integration workflow within the smartWork component of the MAMS. The smartWork workflow makes XML available to the script as input, while the development environment here uses XML fixtures stored under `fixtures/` for testing and development purposes.
+
+Running the script using `groovy match_baton_profile.groovy` will process the XML fixtures and output the constructed lookup key and any matching results. As new profiles are added or existing ones are updated in UCLA's Baton system, the script can be rerun to verify that the lookup key correctly matches the expected profiles. A new fixture should be added to the `fixtures/` directory whenever a new type of media asset needs to be tested, and a corresponding test case should be added to the `runTests()` function in `match_baton_profile.groovy`.
