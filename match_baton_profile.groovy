@@ -45,7 +45,7 @@
  */
 
 // =============================================================================
-// 1. KNOWN BATON PROFILE NAMES
+// KNOWN BATON PROFILE NAMES
 // =============================================================================
 
 /*
@@ -106,7 +106,7 @@ def knownBatonProfiles = [
 ] as Set
 
 // =============================================================================
-// 1A. NORMALISATION MAPPINGS
+// NORMALISATION MAPPINGS
 // =============================================================================
 
 /*
@@ -192,7 +192,7 @@ def videoBitDepthMappings = [
 ]
 
 // =============================================================================
-// 2. SAVE THE LOOKUP RESULT FOR LATER WORKFLOW STEPS
+// SAVE THE LOOKUP RESULT FOR LATER WORKFLOW STEPS
 // =============================================================================
 
 /*
@@ -218,7 +218,7 @@ def saveLookupResult = { lookupKey, matchResult ->
 }
 
 // =============================================================================
-// 3. GENERAL XML HELPERS
+// GENERAL XML HELPERS
 // =============================================================================
 
 def textValue = { node ->
@@ -244,7 +244,7 @@ def firstTrack = { fileNode, trackName ->
 }
 
 // =============================================================================
-// 4. CONTAINER WRAPPER NORMALISATION
+// CONTAINER WRAPPER NORMALISATION
 // =============================================================================
 
 /*
@@ -279,7 +279,7 @@ def normaliseWrapper = { wrapper, fileExt ->
 }
 
 // =============================================================================
-// 5. VIDEO CODEC NORMALISATION
+// VIDEO CODEC NORMALISATION
 // =============================================================================
 
 def normaliseVideoCodec = { codec ->
@@ -294,7 +294,7 @@ def normaliseVideoCodec = { codec ->
 }
 
 // =============================================================================
-// 6. FRAME-RATE NORMALISATION
+// FRAME-RATE NORMALISATION
 // =============================================================================
 
 def normaliseEditRate = { editRate ->
@@ -343,7 +343,7 @@ def normaliseEditRate = { editRate ->
 }
 
 // =============================================================================
-// 7. ASPECT-RATIO NORMALISATION
+// ASPECT-RATIO NORMALISATION
 // =============================================================================
 
 /*
@@ -376,7 +376,7 @@ def normaliseAspectRatio = { aspectRatio, wrapper ->
 }
 
 // =============================================================================
-// 8. VIDEO BIT-DEPTH NORMALISATION
+// VIDEO BIT-DEPTH NORMALISATION
 // =============================================================================
 
 /*
@@ -405,7 +405,7 @@ def normaliseVideoBitDepth = { sourceCodec, bitsPerPixel ->
 }
 
 // =============================================================================
-// 9. AUDIO SAMPLE-RATE NORMALISATION
+// AUDIO SAMPLE-RATE NORMALISATION
 // =============================================================================
 
 def normaliseSampleRate = { audioEditRate ->
@@ -427,7 +427,7 @@ def normaliseSampleRate = { audioEditRate ->
 }
 
 // =============================================================================
-// 10. AUDIO CHANNEL NORMALISATION
+// AUDIO CHANNEL NORMALISATION
 // =============================================================================
 
 def normaliseChannels = { channels ->
@@ -439,7 +439,7 @@ def normaliseChannels = { channels ->
 }
 
 // =============================================================================
-// 11. SELECT THE VIDEO AND AUDIO TRACKS
+// SELECT THE VIDEO AND AUDIO TRACKS
 // =============================================================================
 
 def hasMxfAtomWrapper = { fileNode ->
@@ -517,7 +517,7 @@ def selectTracks = { fileNodes ->
 }
 
 // =============================================================================
-// 12. READ AND NORMALISE THE KEY COMPONENTS
+// READ AND NORMALISE THE KEY COMPONENTS
 // =============================================================================
 
 /*
@@ -602,7 +602,7 @@ def readAudioComponents = { audioTrack ->
 }
 
 // =============================================================================
-// 13. SHARED TECHNICAL XML LOOKUP COMPUTATION
+// SHARED TECHNICAL XML LOOKUP COMPUTATION
 // =============================================================================
 def buildLookupResult = { technicalXml ->
     def noMatch = { message ->
@@ -654,7 +654,7 @@ def buildLookupResult = { technicalXml ->
 }
 
 // =============================================================================
-// 14. RUN FIXTURE TESTS OR SAVE THE PRODUCTION RESULT
+// RUN FIXTURE TESTS OR SAVE THE PRODUCTION RESULT
 // =============================================================================
 def runTests = {
     def tests = [
