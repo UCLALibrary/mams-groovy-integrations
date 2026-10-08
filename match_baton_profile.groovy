@@ -322,7 +322,7 @@ def normaliseEditRate = { editRate ->
         BigDecimal n = new BigDecimal(numerator)
         BigDecimal d = new BigDecimal(denominator)
 
-        if (d.compareTo(BigDecimal.ZERO) != 0) {
+        if (d != 0) {
             BigDecimal calculatedFps =
                 n.divide(d, 6, BigDecimal.ROUND_HALF_UP)
 
