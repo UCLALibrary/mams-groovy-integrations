@@ -106,6 +106,92 @@ def knownBatonProfiles = [
 ] as Set
 
 // =============================================================================
+// 1A. NORMALISATION MAPPINGS
+// =============================================================================
+
+/*
+ * Add or update mappings here when analysis returns new values. Unmapped
+ * values pass through unchanged, so they appear in the No Match lookup key.
+ */
+
+// --- Container wrapper -------------------------------------------------------
+
+// Keys are upper-case wrapper values returned by technical analysis.
+// Values are the exact container labels used in UCLA's Baton profile names.
+def wrapperMappings = [
+    'QUICKTIME': 'QT',
+    'WAVE'     : 'WAV'
+]
+
+// Wrappers that are only normalised for a specific file extension.
+// Keys are upper-case wrapper values; values map a lower-case file extension
+// (no dot) to the container label.
+def wrapperMappingsByFileExt = [
+    'MPEG-4'  : ['mov': 'QT'],
+    'MXF-ATOM': ['mxf': 'MXF']
+]
+
+// --- Video codec -------------------------------------------------------------
+
+// Keys are values returned by technical analysis.
+// Values are the exact labels used in UCLA's Baton profile names.
+def videoCodecMappings = [
+    'PRORES_422_HQ': '422HQ',
+    'V210'         : 'V210',
+    '2VUY'         : '2VUY',
+    'PRORES_4444'  : '4444',
+    'BGR24'        : 'RGB',
+    'DVCPRO'       : 'DV'
+]
+
+// --- Frame rate --------------------------------------------------------------
+
+// Exact "numerator denominator" edit rates used by UCLA's Baton profile naming
+// convention.
+def editRateMappings = [
+    '24000 1001': '2398fps',
+    '23976 1000': '2398fps',
+    '30000 1001': '2997fps',
+    '29970 1000': '2997fps',
+    '60000 1001': '5994fps',
+    '59940 1000': '5994fps'
+]
+
+// Decimal frame rates, whether calculated from an edit rate or supplied as is.
+def decimalFrameRateMappings = [
+    '23.976': '2398fps',
+    '23.98' : '2398fps',
+    '29.97' : '2997fps',
+    '59.94' : '5994fps'
+]
+
+// --- Aspect ratio ------------------------------------------------------------
+
+// Any aspect ratio not listed is returned with the colon replaced by a full
+// stop (4:3 -> 4.3).
+def aspectRatioMappings = [
+    '40:27'    : '3.2',
+    '2048:1485': '1.379',
+    '256:135'  : '1.89'
+]
+
+// Container-specific mappings, which take priority over aspectRatioMappings.
+// Keys are normalised container labels, as returned by normaliseWrapper.
+def aspectRatioMappingsByWrapper = [
+    'MXF': ['256:135': '1.9']
+]
+
+// --- Video bit depth ---------------------------------------------------------
+
+// Codec-specific bit depths, which take priority over BITS_PER_PIXEL (packed
+// pixel storage can report 16 for 8bit media). Keys are upper-case codecs.
+def videoBitDepthMappings = [
+    '2VUY'  : '8bit',
+    'DVCPRO': '8bit',
+    'DV'    : '8bit'
+]
+
+// =============================================================================
 // 2. SAVE THE LOOKUP RESULT FOR LATER WORKFLOW STEPS
 // =============================================================================
 
@@ -178,21 +264,6 @@ def firstTrack = { fileNode, trackName ->
  * remain visible in the generated No Match lookup key.
  */
 
-// Keys are upper-case wrapper values returned by technical analysis.
-// Values are the exact container labels used in UCLA's Baton profile names.
-def wrapperMappings = [
-    'QUICKTIME': 'QT',
-    'WAVE'     : 'WAV'
-]
-
-// Wrappers that are only normalised for a specific file extension.
-// Keys are upper-case wrapper values; values map a lower-case file extension
-// (no dot) to the container label.
-def wrapperMappingsByFileExt = [
-    'MPEG-4'  : ['mov': 'QT'],
-    'MXF-ATOM': ['mxf': 'MXF']
-]
-
 // fileExt is the lower-case extension without the dot, as from fileExtension().
 def normaliseWrapper = { wrapper, fileExt ->
     def cleanWrapper =
@@ -211,17 +282,6 @@ def normaliseWrapper = { wrapper, fileExt ->
 // 5. VIDEO CODEC NORMALISATION
 // =============================================================================
 
-// Keys are values returned by technical analysis.
-// Values are the exact labels used in UCLA's Baton profile names.
-def videoCodecMappings = [
-    'PRORES_422_HQ': '422HQ',
-    'V210'         : 'V210',
-    '2VUY'         : '2VUY',
-    'PRORES_4444'  : '4444',
-    'BGR24'        : 'RGB',
-    'DVCPRO'       : 'DV'
-]
-
 def normaliseVideoCodec = { codec ->
     def cleanCodec =
         codec != null ? codec.trim().toUpperCase() : ''
@@ -236,25 +296,6 @@ def normaliseVideoCodec = { codec ->
 // =============================================================================
 // 6. FRAME-RATE NORMALISATION
 // =============================================================================
-
-// Exact "numerator denominator" edit rates used by UCLA's Baton profile naming
-// convention.
-def editRateMappings = [
-    '24000 1001': '2398fps',
-    '23976 1000': '2398fps',
-    '30000 1001': '2997fps',
-    '29970 1000': '2997fps',
-    '60000 1001': '5994fps',
-    '59940 1000': '5994fps'
-]
-
-// Decimal frame rates, whether calculated from an edit rate or supplied as is.
-def decimalFrameRateMappings = [
-    '23.976': '2398fps',
-    '23.98' : '2398fps',
-    '29.97' : '2997fps',
-    '59.94' : '5994fps'
-]
 
 def normaliseEditRate = { editRate ->
     def cleanRate =
@@ -321,18 +362,6 @@ def normaliseEditRate = { editRate ->
  * Any aspect ratio not listed in the mappings is returned with the colon
  * replaced by a full stop.
  */
-def aspectRatioMappings = [
-    '40:27'    : '3.2',
-    '2048:1485': '1.379',
-    '256:135'  : '1.89'
-]
-
-// Container-specific mappings, which take priority over aspectRatioMappings.
-// Keys are normalised container labels, as returned by normaliseWrapper.
-def aspectRatioMappingsByWrapper = [
-    'MXF': ['256:135': '1.9']
-]
-
 def normaliseAspectRatio = { aspectRatio, wrapper ->
     def cleanAspectRatio =
         aspectRatio != null ? aspectRatio.trim() : ''
@@ -359,12 +388,6 @@ def normaliseAspectRatio = { aspectRatio, wrapper ->
  * Codec-specific rules take priority. Other codecs fall back to the analysed
  * BITS_PER_PIXEL value.
  */
-def videoBitDepthMappings = [
-    '2VUY'  : '8bit',
-    'DVCPRO': '8bit',
-    'DV'    : '8bit'
-]
-
 def normaliseVideoBitDepth = { sourceCodec, bitsPerPixel ->
     def cleanCodec =
         sourceCodec != null ? sourceCodec.trim().toUpperCase() : ''
