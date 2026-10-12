@@ -659,16 +659,52 @@ def buildLookupResult = { technicalXml ->
 def runTests = {
     def tests = [
         [
-            fixture: 'fixtures/test_mxf_package.xml',
+            fixture: 'fixtures/test_mxf_package_mxf-atom_wrapper.xml',
             expectedLookupKey:
                 'MAMs_MXF_2048x1080_JPEG2000_24fps_1.9_12bit_PCM_48.24_6.0',
             expectedMatchResult: 'Match'
-        ],
+        ], // tests MXF package with wrapper `MXF-ATOM`
+        [
+            fixture: 'fixtures/test_mxf_package_mxf_wrapper.xml',
+            expectedLookupKey:
+                'MAMs_MXF_4096x2160_JPEG2000_24fps_1.9_12bit_PCM_48.24_6.0',
+            expectedMatchResult: 'Match'
+        ], // tests MXF package with wrapper `MXF`
         [
             fixture: 'fixtures/test_audio_only.xml',
             expectedLookupKey: 'MAMs_WAV_PCM_48.24_1.0',
             expectedMatchResult: 'Match'
-        ]
+        ], // tests audio-only XML input
+        [
+            fixture: 'fixtures/test_codec_BGR24_to_rgb.xml',
+            expectedLookupKey: 'MAMs_AVI_1440x1080_RGB_25fps_4.3_8bit_MOS',
+            expectedMatchResult: 'Match'
+        ], // tests BGR24 to RGB codec mapping
+        [
+            fixture: 'fixtures/test_codec_prores_4444_to_4444.xml',
+            expectedLookupKey: 'MAMs_QT_1920x1080_4444_24fps_16.9_12bit_PCM_48.24_2.0',
+            expectedMatchResult: 'Match'
+        ], // tests PRORES_4444 to 4444 mapping
+        [
+            fixture: 'fixtures/test_aspect_ratio_146:77_to_1.89.xml',
+            expectedLookupKey: 'MAMs_QT_4096x2160_422HQ_24fps_1.89_10bit_PCM_48.24_2.0',
+            expectedMatchResult: 'Match'
+        ], // tests aspect ratio mapping 146:77 to 1.89
+        [
+            fixture: 'fixtures/test_aspect_ratio_131:95_to_1.379.xml',
+            expectedLookupKey: 'MAMs_QT_2048x1485_422HQ_24fps_1.379_10bit_PCM_48.24_2.0',
+            expectedMatchResult: 'Match'
+        ], // tests aspect ratio mapping 131:95 to 1.379
+        [
+            fixture: 'fixtures/test_bit_depth_8bit_for_dv.xml',
+            expectedLookupKey: 'MAMs_QT_720x480_DV_2997fps_4.3_8bit_PCM_48.16_1.0',
+            expectedMatchResult: 'Match'
+        ], // tests 8-bit depth mapping for DV
+        [
+            fixture: 'fixtures/test_bit_depth_8bit_for_dvcpro.xml',
+            expectedLookupKey: 'MAMs_AVI_720x480_DV_2997fps_4.3_8bit_PCM_48.16_2.0',
+            expectedMatchResult: 'Match'
+        ] // tests 8-bit depth mapping for DVCPro
     ]
 
     def failedTests = []

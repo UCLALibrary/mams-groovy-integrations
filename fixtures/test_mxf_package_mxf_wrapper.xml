@@ -1,0 +1,108 @@
+<WIP_TECHNICAL>
+    <ASSET>
+        <OBJECTID></OBJECTID>
+        <MEDIAID>f5e76f79-f256-45d4-9ebc-4d772c764d50</MEDIAID>
+        <REPOSITORY></REPOSITORY>
+        <TITLE>TEST_Don't panic</TITLE>
+        <TYPE>VIDEO</TYPE>
+        <TECHNICAL>
+            <FILE NAME="b5926c1f-e8ff-41c9-8529-b1461ce191a1_video.mxf" FILE_ID="11">
+                <MEDIAFORMAT>0</MEDIAFORMAT>
+                <DISPLAY_NAME>MXF JPEG 2000</DISPLAY_NAME>
+                <WRAPPER>MXF</WRAPPER>
+                <FILENAME>b5926c1f-e8ff-41c9-8529-b1461ce191a1_video.mxf</FILENAME>
+                <FILE_EXTENSION>.mxf</FILE_EXTENSION>
+                <SOM>00:00:00:00</SOM>
+                <SOM_IN_FRAMES>0</SOM_IN_FRAMES>
+                <FIRST_PRESENTATION_TIME>0</FIRST_PRESENTATION_TIME>
+                <INTRINSIC_DURATION>6017</INTRINSIC_DURATION>
+                <INTRINSIC_DURATION_IN_SECONDS>250.708</INTRINSIC_DURATION_IN_SECONDS>
+                <BITRATE>203742729</BITRATE>
+                <EDIT_RATE>24 1</EDIT_RATE>
+                <PHYSICAL_AUDIO_TRACKS>0</PHYSICAL_AUDIO_TRACKS>
+                <VENDOR>Fraunhofer IIS</VENDOR>
+                <VENDOR_APPLICATION>easyDCP Creator+</VENDOR_APPLICATION>
+                <ENCODED_DATE>2024-09-13T21:59:10Z</ENCODED_DATE>
+                <MIMETYPE>application/mxf</MIMETYPE>
+                <TRUNCATED>false</TRUNCATED>
+                <IMF>
+                    <ID>urn:uuid:b5926c1f-e8ff-41c9-8529-b1461ce191a1</ID>
+                    <HASH>2BB7E325F6A3058E60B141FFF4274B7B12432B86</HASH>
+                    <TYPE>application/mxf</TYPE>
+                </IMF>
+                <TRACKS>
+                    <VIDEO_TRACK>
+                        <ORDER>0</ORDER>
+                        <DEFINITION>4K</DEFINITION>
+                        <VIDEO_CODEC>JPEG2000</VIDEO_CODEC>
+                        <CODEC_PROFILE>D-Cinema 4k</CODEC_PROFILE>
+                        <INTERFRAME_COMPRESS>1</INTERFRAME_COMPRESS>
+                        <COLOR_SPACE>XYZ</COLOR_SPACE>
+                        <SCAN_TYPE>Progressive</SCAN_TYPE>
+                        <BITRATE>203740729</BITRATE>
+                        <BITRATE_TYPE>VARIABLE</BITRATE_TYPE>
+                        <BITS_PER_PIXEL>12</BITS_PER_PIXEL>
+                        <EDIT_RATE>24 1</EDIT_RATE>
+                        <EDIT_RATE_TYPE>CFR</EDIT_RATE_TYPE>
+                        <ASPECT_RATIO>146:77</ASPECT_RATIO>
+                        <VIDEO_SIZE_WIDTH>4096</VIDEO_SIZE_WIDTH>
+                        <VIDEO_SIZE_HEIGHT>2160</VIDEO_SIZE_HEIGHT>
+                        <VIDEO_DISPLAY_SIZE_WIDTH>4096</VIDEO_DISPLAY_SIZE_WIDTH>
+                        <VIDEO_DISPLAY_SIZE_HEIGHT>2160</VIDEO_DISPLAY_SIZE_HEIGHT>
+                        <VIDEO_DISPLAY_OFFSET_WIDTH>0</VIDEO_DISPLAY_OFFSET_WIDTH>
+                        <VIDEO_DISPLAY_OFFSET_HEIGHT>0</VIDEO_DISPLAY_OFFSET_HEIGHT>
+                        <ROTATION>0</ROTATION>
+                        <SIZE_GOP>1</SIZE_GOP>
+                        <CHROMA_SUBSAMPLING>4:4:4</CHROMA_SUBSAMPLING>
+                        <AFD>0</AFD>
+                        <ORIGIN_VIDEO>0</ORIGIN_VIDEO>
+                        <VIDEO_LAYOUT>2D</VIDEO_LAYOUT>
+                        <VR_TYPE>NONE</VR_TYPE>
+                        <DYNAMIC_RANGE>SDR</DYNAMIC_RANGE>
+                        <DYNAMIC_RANGE_FORMAT>CRT</DYNAMIC_RANGE_FORMAT>
+                    </VIDEO_TRACK>
+                </TRACKS>
+            </FILE>
+            <FILE NAME="6fb11055-9097-4c3f-a1a0-7ffdca88f585_audio.mxf" FILE_ID="10">
+                <MEDIAFORMAT>0</MEDIAFORMAT>
+                <DISPLAY_NAME>MXF PCM</DISPLAY_NAME>
+                <WRAPPER>MXF</WRAPPER>
+                <FILENAME>6fb11055-9097-4c3f-a1a0-7ffdca88f585_audio.mxf</FILENAME>
+                <FILE_EXTENSION>.mxf</FILE_EXTENSION>
+                <SOM>00:00:00:00</SOM>
+                <SOM_IN_FRAMES>0</SOM_IN_FRAMES>
+                <FIRST_PRESENTATION_TIME>0</FIRST_PRESENTATION_TIME>
+                <INTRINSIC_DURATION>12033984</INTRINSIC_DURATION>
+                <INTRINSIC_DURATION_IN_SECONDS>250.708</INTRINSIC_DURATION_IN_SECONDS>
+                <BITRATE>6916387</BITRATE>
+                <EDIT_RATE>48000 1</EDIT_RATE>
+                <PHYSICAL_AUDIO_TRACKS>1</PHYSICAL_AUDIO_TRACKS>
+                <VENDOR>Fraunhofer IIS</VENDOR>
+                <VENDOR_APPLICATION>easyDCP Creator+</VENDOR_APPLICATION>
+                <ENCODED_DATE>2024-09-13T21:59:01Z</ENCODED_DATE>
+                <MIMETYPE>application/mxf</MIMETYPE>
+                <TRUNCATED>false</TRUNCATED>
+                <IMF>
+                    <ID>urn:uuid:6fb11055-9097-4c3f-a1a0-7ffdca88f585</ID>
+                    <HASH>E97C95EAF9AAF07A1395603D42642D1607E7F758</HASH>
+                    <TYPE>application/mxf</TYPE>
+                </IMF>
+                <TRACKS>
+                    <AUDIO_TRACK>
+                        <ORDER>1</ORDER>
+                        <AUDIO_CODEC>PCM</AUDIO_CODEC>
+                        <AUDIO_CHANNELS_PER_TRACK>6</AUDIO_CHANNELS_PER_TRACK>
+                        <BITRATE>6912000</BITRATE>
+                        <BITRATE_TYPE>CBR</BITRATE_TYPE>
+                        <EDIT_RATE>48000 1</EDIT_RATE>
+                        <BITS_PER_AUDIO_SAMPLE>24</BITS_PER_AUDIO_SAMPLE>
+                        <AUDIO_ENDIANESS>LITTLE_ENDIAN</AUDIO_ENDIANESS>
+                        <AUDIO_TYPE>UNKNOWN</AUDIO_TYPE>
+                        <AUDIO_LANGUAGE>und</AUDIO_LANGUAGE>
+                        <ORIGIN_AUDIO>0</ORIGIN_AUDIO>
+                    </AUDIO_TRACK>
+                </TRACKS>
+            </FILE>
+        </TECHNICAL>
+    </ASSET>
+</WIP_TECHNICAL>

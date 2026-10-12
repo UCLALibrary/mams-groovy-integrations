@@ -1,0 +1,74 @@
+<WIP_TECHNICAL>
+    <ASSET>
+        <OBJECTID></OBJECTID>
+        <MEDIAID>a592758c-e2d5-4bb5-8d1f-50a864fb08ec</MEDIAID>
+        <REPOSITORY></REPOSITORY>
+        <TITLE>TEST_Insight. Diary of a beatnik</TITLE>
+        <TYPE>VIDEO</TYPE>
+        <TECHNICAL>
+            <FILE NAME="Randy_InsightBeatnik_NTSC-SD_24_fps.avi" FILE_ID="4">
+                <MEDIAFORMAT>71</MEDIAFORMAT>
+                <DISPLAY_NAME>AVI DV</DISPLAY_NAME>
+                <WRAPPER>AVI</WRAPPER>
+                <FILENAME>Randy_InsightBeatnik_NTSC-SD_24_fps.avi</FILENAME>
+                <FILE_EXTENSION>.avi</FILE_EXTENSION>
+                <SOM>00:00:00:00</SOM>
+                <SOM_IN_FRAMES>0</SOM_IN_FRAMES>
+                <FIRST_PRESENTATION_TIME>0</FIRST_PRESENTATION_TIME>
+                <INTRINSIC_DURATION>53855</INTRINSIC_DURATION>
+                <INTRINSIC_DURATION_IN_SECONDS>1796.962</INTRINSIC_DURATION_IN_SECONDS>
+                <BITRATE>30312242</BITRATE>
+                <EDIT_RATE>30000 1001</EDIT_RATE>
+                <PHYSICAL_AUDIO_TRACKS>1</PHYSICAL_AUDIO_TRACKS>
+                <ENCODED_DATE>0001-01-01T00:00:00</ENCODED_DATE>
+                <MIMETYPE>video/vnd.avi</MIMETYPE>
+                <TRUNCATED>false</TRUNCATED>
+                <TRACKS>
+                    <VIDEO_TRACK>
+                        <ORDER>0</ORDER>
+                        <DEFINITION>SD</DEFINITION>
+                        <VIDEO_CODEC>DVCPRO</VIDEO_CODEC>
+                        <INTERFRAME_COMPRESS>1</INTERFRAME_COMPRESS>
+                        <COLOR_SPACE>YUV</COLOR_SPACE>
+                        <SCAN_TYPE>Interlaced</SCAN_TYPE>
+                        <SCAN_ORDER>BFF</SCAN_ORDER>
+                        <BITRATE>24417183</BITRATE>
+                        <BITRATE_TYPE>CBR</BITRATE_TYPE>
+                        <BITS_PER_PIXEL>8</BITS_PER_PIXEL>
+                        <EDIT_RATE>30000 1001</EDIT_RATE>
+                        <EDIT_RATE_TYPE>CFR</EDIT_RATE_TYPE>
+                        <ASPECT_RATIO>4:3</ASPECT_RATIO>
+                        <VIDEO_SIZE_WIDTH>720</VIDEO_SIZE_WIDTH>
+                        <VIDEO_SIZE_HEIGHT>480</VIDEO_SIZE_HEIGHT>
+                        <VIDEO_DISPLAY_SIZE_WIDTH>720</VIDEO_DISPLAY_SIZE_WIDTH>
+                        <VIDEO_DISPLAY_SIZE_HEIGHT>480</VIDEO_DISPLAY_SIZE_HEIGHT>
+                        <VIDEO_DISPLAY_OFFSET_WIDTH>0</VIDEO_DISPLAY_OFFSET_WIDTH>
+                        <VIDEO_DISPLAY_OFFSET_HEIGHT>0</VIDEO_DISPLAY_OFFSET_HEIGHT>
+                        <ROTATION>0</ROTATION>
+                        <SIZE_GOP>1</SIZE_GOP>
+                        <CHROMA_SUBSAMPLING>4:1:1</CHROMA_SUBSAMPLING>
+                        <AFD>0</AFD>
+                        <ORIGIN_VIDEO>0</ORIGIN_VIDEO>
+                        <VIDEO_LAYOUT>2D</VIDEO_LAYOUT>
+                        <VR_TYPE>NONE</VR_TYPE>
+                        <DYNAMIC_RANGE>SDR</DYNAMIC_RANGE>
+                        <DYNAMIC_RANGE_FORMAT>CRT</DYNAMIC_RANGE_FORMAT>
+                    </VIDEO_TRACK>
+                    <AUDIO_TRACK>
+                        <ORDER>1</ORDER>
+                        <AUDIO_CODEC>PCM</AUDIO_CODEC>
+                        <AUDIO_CHANNELS_PER_TRACK>2</AUDIO_CHANNELS_PER_TRACK>
+                        <BITRATE>1536000</BITRATE>
+                        <BITRATE_TYPE>CBR</BITRATE_TYPE>
+                        <EDIT_RATE>48000 1</EDIT_RATE>
+                        <BITS_PER_AUDIO_SAMPLE>16</BITS_PER_AUDIO_SAMPLE>
+                        <AUDIO_ENDIANESS>LITTLE_ENDIAN</AUDIO_ENDIANESS>
+                        <AUDIO_TYPE>UNKNOWN</AUDIO_TYPE>
+                        <AUDIO_LANGUAGE>und</AUDIO_LANGUAGE>
+                        <ORIGIN_AUDIO>0</ORIGIN_AUDIO>
+                    </AUDIO_TRACK>
+                </TRACKS>
+            </FILE>
+        </TECHNICAL>
+    </ASSET>
+</WIP_TECHNICAL>
