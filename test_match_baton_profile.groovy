@@ -60,7 +60,12 @@ def tests = [
         expectedLookupKey:
             'MAMs_AVI_720x480_DV_2997fps_4.3_8bit_PCM_48.16_2.0',
         expectedMatchResult: 'Match'
-    ] // tests 8-bit depth mapping for DVCPro
+    ], // tests 8-bit depth mapping for DVCPro
+    [
+        fixture: 'fixtures/test_no_match.xml',
+        expectedLookupKey: '',
+        expectedMatchResult: 'No Match'
+    ] // tests no match scenario using incomplete technical XML
 ]
 
 /**
