@@ -404,9 +404,9 @@ def normaliseVideoBitDepth = { sourceCodec, bitsPerPixel ->
     def cleanBits =
         bitsPerPixel != null ? bitsPerPixel.trim() : ''
 
-    return cleanBits != ''
-        ? cleanBits + 'bit'
-        : ''
+    return cleanBits == ''
+        ? ''
+        : cleanBits + 'bit'
 }
 
 // =============================================================================
