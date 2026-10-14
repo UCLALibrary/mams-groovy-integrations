@@ -607,7 +607,7 @@ def readAudioComponents = { audioTrack ->
 }
 
 // =============================================================================
-// SHARED TECHNICAL XML LOOKUP COMPUTATION
+// BATON LOOKUP KEY ASSEMBLY LOGIC
 // =============================================================================
 def buildLookupResult = { technicalXml ->
     def noMatch = { message ->
@@ -659,140 +659,39 @@ def buildLookupResult = { technicalXml ->
 }
 
 // =============================================================================
-// RUN FIXTURE TESTS OR SAVE THE PRODUCTION RESULT
+// TEST MODE CHECK
 // =============================================================================
-def runTests = {
-    def tests = [
-        [
-            fixture: 'fixtures/test_mxf_package_mxf-atom_wrapper.xml',
-            expectedLookupKey:
-                'MAMs_MXF_2048x1080_JPEG2000_24fps_1.9_12bit_PCM_48.24_6.0',
-            expectedMatchResult: 'Match'
-        ], // tests MXF package with wrapper `MXF-ATOM`
-        [
-            fixture: 'fixtures/test_mxf_package_mxf_wrapper.xml',
-            expectedLookupKey:
-                'MAMs_MXF_4096x2160_JPEG2000_24fps_1.9_12bit_PCM_48.24_6.0',
-            expectedMatchResult: 'Match'
-        ], // tests MXF package with wrapper `MXF`
-        [
-            fixture: 'fixtures/test_audio_only.xml',
-            expectedLookupKey: 'MAMs_WAV_PCM_48.24_1.0',
-            expectedMatchResult: 'Match'
-        ], // tests audio-only XML input
-        [
-            fixture: 'fixtures/test_codec_BGR24_to_rgb.xml',
-            expectedLookupKey: 'MAMs_AVI_1440x1080_RGB_25fps_4.3_8bit_MOS',
-            expectedMatchResult: 'Match'
-        ], // tests BGR24 to RGB codec mapping
-        [
-            fixture: 'fixtures/test_codec_prores_4444_to_4444.xml',
-            expectedLookupKey: 'MAMs_QT_1920x1080_4444_24fps_16.9_12bit_PCM_48.24_2.0',
-            expectedMatchResult: 'Match'
-        ], // tests PRORES_4444 to 4444 mapping
-        [
-            fixture: 'fixtures/test_aspect_ratio_146:77_to_1.89.xml',
-            expectedLookupKey: 'MAMs_QT_4096x2160_422HQ_24fps_1.89_10bit_PCM_48.24_2.0',
-            expectedMatchResult: 'Match'
-        ], // tests aspect ratio mapping 146:77 to 1.89
-        [
-            fixture: 'fixtures/test_aspect_ratio_131:95_to_1.379.xml',
-            expectedLookupKey: 'MAMs_QT_2048x1485_422HQ_24fps_1.379_10bit_PCM_48.24_2.0',
-            expectedMatchResult: 'Match'
-        ], // tests aspect ratio mapping 131:95 to 1.379
-        [
-            fixture: 'fixtures/test_bit_depth_8bit_for_dv.xml',
-            expectedLookupKey: 'MAMs_QT_720x480_DV_2997fps_4.3_8bit_PCM_48.16_1.0',
-            expectedMatchResult: 'Match'
-        ], // tests 8-bit depth mapping for DV
-        [
-            fixture: 'fixtures/test_bit_depth_8bit_for_dvcpro.xml',
-            expectedLookupKey: 'MAMs_AVI_720x480_DV_2997fps_4.3_8bit_PCM_48.16_2.0',
-            expectedMatchResult: 'Match'
-        ] // tests 8-bit depth mapping for DVCPro
-    ]
-
-    def failedTests = []
-    def recordFailure = { test, message ->
-        println "FAIL: ${test.fixture} (${message})"
-        failedTests << test.fixture
-    }
-
-    tests.each { test ->
-        def fixture = java.nio.file.Paths.get(test.fixture)
-
-        if (!java.nio.file.Files.isRegularFile(fixture)) {
-            println "FAIL: ${test.fixture} (fixture not found)"
-            failedTests << test.fixture
-            return
-        }
-
-        try {
-            def technicalXml = new groovy.xml.XmlSlurper(false, false).parseText(
-                java.nio.file.Files.readString(fixture)
-            )
-            def result = buildLookupResult(technicalXml)
-
-            if (
-                result.lookupKey == test.expectedLookupKey &&
-                result.matchResult == test.expectedMatchResult
-            ) {
-                println "PASS: ${test.fixture}"
-            } else {
-                println "FAIL: ${test.fixture}"
-                println "  expected key:    ${test.expectedLookupKey}"
-                println "  actual key:      ${result.lookupKey}"
-                println "  expected result: ${test.expectedMatchResult}"
-                println "  actual result:   ${result.matchResult}"
-                failedTests << test.fixture
-            }
-        } catch (java.io.IOException e) {
-            recordFailure(test, e.message)
-        } catch (org.xml.sax.SAXException e) {
-            recordFailure(test, e.message)
-        } catch (NumberFormatException e) {
-            recordFailure(test, e.message)
-        }
-    }
-
-    if (!failedTests.isEmpty()) {
-        println 'Fixture tests failed: ' + failedTests.join(', ')
-    }
+/**
+ * Using Groovy's Binding class, we check if there is a truthy `TEST_MODE` variable.
+ * This binding is created by `test_match_baton_profile.groovy`
+ * when running that script in the development environment, and if it isn't defined,
+ * the script will safely pass through to the production execution below.
+ * Otherwise, it will return the `buildLookupResult` closure for testing purposes.
+ */
+if (binding.variables.get('TEST_MODE')) {
+    return buildLookupResult
 }
 
-def runProduction = { technicalXml ->
-    def result = buildLookupResult(technicalXml)
+// =============================================================================
+// PRODUCTION EXECUTION
+// =============================================================================
+def technicalXml = WIPUtils.technical()
+def result = buildLookupResult(technicalXml)
 
-    if (result.message) {
+if (result.message) {
+    logger.info(
+        'QC lookup key could not be built. ' + result.message
+    )
+} else {
+    logger.info('QC Lookup Key : ' + result.lookupKey)
+    logger.info('QC Match Result : ' + result.matchResult)
+
+    if (result.matchResult == 'No Match') {
         logger.info(
-            'QC lookup key could not be built. ' + result.message
+            'Known Baton profiles: ' +
+            knownBatonProfiles.join(' | ')
         )
-    } else {
-        logger.info('QC Lookup Key : ' + result.lookupKey)
-        logger.info('QC Match Result : ' + result.matchResult)
-
-        if (result.matchResult == 'No Match') {
-            logger.info(
-                'Known Baton profiles: ' +
-                knownBatonProfiles.join(' | ')
-            )
-        }
     }
-
-    return saveLookupResult(result.lookupKey, result.matchResult)
 }
 
-def technicalXml
-
-try {
-    technicalXml = WIPUtils.technical()
-} catch (groovy.lang.MissingPropertyException e) {
-    if (e.property != 'WIPUtils') {
-        throw e
-    }
-
-    println 'Production WIPUtils class is unavailable. Running in test mode.'
-    return runTests()
-}
-
-return runProduction(technicalXml)
+return saveLookupResult(result.lookupKey, result.matchResult)

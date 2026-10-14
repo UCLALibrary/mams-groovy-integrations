@@ -6,6 +6,7 @@
         "DuplicateStringLiteral": "off",
         "NoDef": "off",
         "UnnecessaryGetter": "off",
-        "VariableTypeRequired": "off"
+        "VariableTypeRequired": "off",
+        "JavaIoPackageAccess": "off"
     }
 }
