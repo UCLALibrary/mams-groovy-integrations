@@ -1,0 +1,12 @@
+{
+    "extends": "recommended",
+    "rules": {
+        "CompileStatic": "off",
+        "DuplicateNumberLiteral": "off",
+        "DuplicateStringLiteral": "off",
+        "NoDef": "off",
+        "UnnecessaryGetter": "off",
+        "VariableTypeRequired": "off",
+        "JavaIoPackageAccess": "off"
+    }
+}

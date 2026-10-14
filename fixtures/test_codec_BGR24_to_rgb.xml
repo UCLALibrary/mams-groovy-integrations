@@ -1,0 +1,60 @@
+<WIP_TECHNICAL>
+    <ASSET>
+        <OBJECTID></OBJECTID>
+        <MEDIAID>1ee0ad18-904d-418b-82ab-4fd4f711483f</MEDIAID>
+        <REPOSITORY></REPOSITORY>
+        <TITLE>TEST_Insight. Diary of a beatnik</TITLE>
+        <TYPE>VIDEO</TYPE>
+        <TECHNICAL>
+            <FILE NAME="T94561Insight_01.avi" FILE_ID="4">
+                <MEDIAFORMAT>0</MEDIAFORMAT>
+                <DISPLAY_NAME>AVI RGB</DISPLAY_NAME>
+                <WRAPPER>AVI</WRAPPER>
+                <FILENAME>T94561Insight_01.avi</FILENAME>
+                <FILE_EXTENSION>.avi</FILE_EXTENSION>
+                <SOM>00:00:00:00</SOM>
+                <SOM_IN_FRAMES>0</SOM_IN_FRAMES>
+                <FIRST_PRESENTATION_TIME>0</FIRST_PRESENTATION_TIME>
+                <INTRINSIC_DURATION>29024</INTRINSIC_DURATION>
+                <INTRINSIC_DURATION_IN_SECONDS>1160.960</INTRINSIC_DURATION_IN_SECONDS>
+                <BITRATE>933123324</BITRATE>
+                <EDIT_RATE>25 1</EDIT_RATE>
+                <PHYSICAL_AUDIO_TRACKS>0</PHYSICAL_AUDIO_TRACKS>
+                <ENCODED_DATE>0001-01-01T00:00:00</ENCODED_DATE>
+                <MIMETYPE>video/vnd.avi</MIMETYPE>
+                <TRUNCATED>false</TRUNCATED>
+                <TRACKS>
+                    <VIDEO_TRACK>
+                        <ORDER>0</ORDER>
+                        <DEFINITION>HD</DEFINITION>
+                        <VIDEO_CODEC>BGR24</VIDEO_CODEC>
+                        <INTERFRAME_COMPRESS>1</INTERFRAME_COMPRESS>
+                        <COLOR_SPACE>RGB</COLOR_SPACE>
+                        <SCAN_TYPE>UNKNOWN</SCAN_TYPE>
+                        <BITRATE>933120000</BITRATE>
+                        <BITRATE_TYPE>CONSTANT</BITRATE_TYPE>
+                        <BITS_PER_PIXEL>8</BITS_PER_PIXEL>
+                        <EDIT_RATE>25 1</EDIT_RATE>
+                        <EDIT_RATE_TYPE>CFR</EDIT_RATE_TYPE>
+                        <ASPECT_RATIO>4:3</ASPECT_RATIO>
+                        <VIDEO_SIZE_WIDTH>1440</VIDEO_SIZE_WIDTH>
+                        <VIDEO_SIZE_HEIGHT>1080</VIDEO_SIZE_HEIGHT>
+                        <VIDEO_DISPLAY_SIZE_WIDTH>1440</VIDEO_DISPLAY_SIZE_WIDTH>
+                        <VIDEO_DISPLAY_SIZE_HEIGHT>1080</VIDEO_DISPLAY_SIZE_HEIGHT>
+                        <VIDEO_DISPLAY_OFFSET_WIDTH>0</VIDEO_DISPLAY_OFFSET_WIDTH>
+                        <VIDEO_DISPLAY_OFFSET_HEIGHT>0</VIDEO_DISPLAY_OFFSET_HEIGHT>
+                        <ROTATION>0</ROTATION>
+                        <SIZE_GOP>1</SIZE_GOP>
+                        <CHROMA_SUBSAMPLING>4:4:4</CHROMA_SUBSAMPLING>
+                        <AFD>0</AFD>
+                        <ORIGIN_VIDEO>0</ORIGIN_VIDEO>
+                        <VIDEO_LAYOUT>2D</VIDEO_LAYOUT>
+                        <VR_TYPE>NONE</VR_TYPE>
+                        <DYNAMIC_RANGE>SDR</DYNAMIC_RANGE>
+                        <DYNAMIC_RANGE_FORMAT>CRT</DYNAMIC_RANGE_FORMAT>
+                    </VIDEO_TRACK>
+                </TRACKS>
+            </FILE>
+        </TECHNICAL>
+    </ASSET>
+</WIP_TECHNICAL>

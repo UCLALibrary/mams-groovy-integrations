@@ -18,7 +18,7 @@ The project's directory is available within the container at `/home/groovy/proje
 
 ## Running code
 
-From within the dev container, you can run code using the `groovy` command. For example, `groovy HelloWorld.groovy` should print "Hello, World" to the console.
+From within the dev container, you can run code using the `groovy` command. For example, `groovy -version` should print the Groovy version to the console.
 
 Otherwise, run a program via docker compose. From the project directory:
 
@@ -35,3 +35,12 @@ $ WARNING: Using incubator modules: jdk.incubator.vector  <- This warning can be
 $ Groovy Version: 5.0.3 JVM: 25.0.1 Vendor: Eclipse Adoptium OS: Linux
 ``` 
 
+## match_baton_profile.groovy
+
+This script constructs a lookup key from XML inputs representing technical metadata of media assets in the MAMS to match against profiles active in UCLA's Baton media quality control system. The script is a step in an integration workflow within the smartWork component of the MAMS. The smartWork workflow makes XML available to the script as input, while the development environment here uses XML fixtures stored under `fixtures/` for testing and development purposes.
+
+Run `groovy test_match_baton_profile.groovy` to execute the fixture tests. Add new XML fixtures to `fixtures/` and their expected results to the case list in `test_match_baton_profile.groovy`. The test runner loads only `buildLookupResult` from `match_baton_profile.groovy` via a Groovy `Binding`, allowing isolated testing of the lookup key generation logic without invoking any of the production dependencies like `WIPUtils`.
+
+## `GroovyLint` config
+
+The `.groovylintrc.json` file contains the configuration for the `GroovyLint` extension, which is used for linting and formatting. With default settings, we were seeing noisy, style-related linting output, so we disabled the relevant rules.
