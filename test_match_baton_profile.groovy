@@ -36,7 +36,7 @@ def tests = [
         expectedLookupKey:
             'MAMs_QT_1920x1080_4444_24fps_16.9_12bit_PCM_48.24_2.0',
         expectedMatchResult: 'Match'
-    ], // tests PRORES_4444 to 4444 mapping
+    ], // tests PRORES_4444 to 4444 mapping (also covers MPEG-4 to QT mapping for .mov)
     [
         fixture: 'fixtures/test_aspect_ratio_146:77_to_1.89.xml',
         expectedLookupKey:
