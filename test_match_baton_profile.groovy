@@ -38,6 +38,11 @@ def tests = [
         expectedMatchResult: 'Match'
     ], // tests PRORES_4444 to 4444 mapping (also covers MPEG-4 to QT mapping for .mov)
     [
+        fixture: 'fixtures/test_codec_prores_4444XQ.xml',
+        expectedLookupKey: 'MAMs_QT_2146x1582_4444XQ_24fps_4.3_12bit_PCM_48.24_1.0',
+        expectedMatchResult: 'Match'
+    ], // tests PRORES_4444_XQ to 4444XQ mapping
+    [
         fixture: 'fixtures/test_aspect_ratio_146:77_to_1.89.xml',
         expectedLookupKey:
             'MAMs_QT_4096x2160_422HQ_24fps_1.89_10bit_PCM_48.24_2.0',
@@ -65,7 +70,12 @@ def tests = [
         fixture: 'fixtures/test_no_match.xml',
         expectedLookupKey: '',
         expectedMatchResult: 'No Match'
-    ] // tests no match scenario using incomplete technical XML
+    ], // tests no match scenario using incomplete technical XML
+    [
+        fixture: 'fixtures/test_codec_aac_audio.xml',
+        expectedLookupKey: 'MAMs_MP4_2048x1080_H264_2398fps_1.89_8bit_AACLC_48.16_2.0',
+        expectedMatchResult: 'Match'
+    ], // tests that asset with video and AAC audio is correctly matched
 ]
 
 /**

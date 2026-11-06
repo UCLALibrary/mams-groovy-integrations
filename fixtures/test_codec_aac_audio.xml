@@ -1,0 +1,79 @@
+<WIP_TECHNICAL>
+    <ASSET>
+        <OBJECTID></OBJECTID>
+        <MEDIAID>E0D08670-D080-F44C-A1C2-33AAA76DC0A6</MEDIAID>
+        <REPOSITORY></REPOSITORY>
+        <TITLE>Greatest Mother of ‘Em All, The</TITLE>
+        <TYPE>VIDEO</TYPE>
+        <TECHNICAL>
+            <FILE NAME="M32152_Greatest_Mother_Of_Em_All_The_2048x1080_2398fps_Watermark_FINAL.mp4" FILE_ID="4">
+                <MEDIAFORMAT>242</MEDIAFORMAT>
+                <DISPLAY_NAME>MPEG-4 AVC</DISPLAY_NAME>
+                <WRAPPER>MPEG-4</WRAPPER>
+                <FILENAME>M32152_Greatest_Mother_Of_Em_All_The_2048x1080_2398fps_Watermark_FINAL.mp4</FILENAME>
+                <FILE_EXTENSION>.mp4</FILE_EXTENSION>
+                <SOM>00:00:00:00</SOM>
+                <SOM_IN_FRAMES>0</SOM_IN_FRAMES>
+                <FIRST_PRESENTATION_TIME>0</FIRST_PRESENTATION_TIME>
+                <INTRINSIC_DURATION>42574</INTRINSIC_DURATION>
+                <INTRINSIC_DURATION_IN_SECONDS>1775.691</INTRINSIC_DURATION_IN_SECONDS>
+                <BITRATE>10270206</BITRATE>
+                <EDIT_RATE>24000 1001</EDIT_RATE>
+                <PHYSICAL_AUDIO_TRACKS>1</PHYSICAL_AUDIO_TRACKS>
+                <ENCODED_DATE>2026-09-01T22:43:33Z</ENCODED_DATE>
+                <MIMETYPE>video/mp4</MIMETYPE>
+                <TRUNCATED>false</TRUNCATED>
+                <TRACKS>
+                    <VIDEO_TRACK>
+                        <ORDER>0</ORDER>
+                        <DEFINITION>2K</DEFINITION>
+                        <VIDEO_CODEC>H264</VIDEO_CODEC>
+                        <CODEC_PROFILE>Main@L4.2</CODEC_PROFILE>
+                        <INTERFRAME_COMPRESS>1</INTERFRAME_COMPRESS>
+                        <COLOR_SPACE>YUV</COLOR_SPACE>
+                        <SCAN_TYPE>Progressive</SCAN_TYPE>
+                        <BITRATE>9949851</BITRATE>
+                        <BITRATE_TYPE>VBR</BITRATE_TYPE>
+                        <BITS_PER_PIXEL>8</BITS_PER_PIXEL>
+                        <EDIT_RATE>24000 1001</EDIT_RATE>
+                        <EDIT_RATE_TYPE>CFR</EDIT_RATE_TYPE>
+                        <ASPECT_RATIO>146:77</ASPECT_RATIO>
+                        <VIDEO_SIZE_WIDTH>2048</VIDEO_SIZE_WIDTH>
+                        <VIDEO_SIZE_HEIGHT>1080</VIDEO_SIZE_HEIGHT>
+                        <VIDEO_DISPLAY_SIZE_WIDTH>2048</VIDEO_DISPLAY_SIZE_WIDTH>
+                        <VIDEO_DISPLAY_SIZE_HEIGHT>1080</VIDEO_DISPLAY_SIZE_HEIGHT>
+                        <VIDEO_DISPLAY_OFFSET_WIDTH>0</VIDEO_DISPLAY_OFFSET_WIDTH>
+                        <VIDEO_DISPLAY_OFFSET_HEIGHT>8</VIDEO_DISPLAY_OFFSET_HEIGHT>
+                        <ROTATION>0</ROTATION>
+                        <SIZE_GOP>1</SIZE_GOP>
+                        <CHROMA_SUBSAMPLING>4:2:0</CHROMA_SUBSAMPLING>
+                        <AFD>0</AFD>
+                        <ORIGIN_VIDEO>0</ORIGIN_VIDEO>
+                        <COLOUR_PRIMARIES>BT.709</COLOUR_PRIMARIES>
+                        <TRANSFER_CHARACTERISTICS>BT.709</TRANSFER_CHARACTERISTICS>
+                        <MATRIX_COEFFICIENTS>BT.709</MATRIX_COEFFICIENTS>
+                        <VIDEO_LAYOUT>2D</VIDEO_LAYOUT>
+                        <VR_TYPE>NONE</VR_TYPE>
+                        <DYNAMIC_RANGE>SDR</DYNAMIC_RANGE>
+                        <DYNAMIC_RANGE_FORMAT>CRT</DYNAMIC_RANGE_FORMAT>
+                    </VIDEO_TRACK>
+                    <AUDIO_TRACK>
+                        <ORDER>1</ORDER>
+                        <AUDIO_CODEC>AAC</AUDIO_CODEC>
+                        <AUDIO_CHANNELS_PER_TRACK>2</AUDIO_CHANNELS_PER_TRACK>
+                        <AUDIO_CHANNELS_LAYOUT>L R</AUDIO_CHANNELS_LAYOUT>
+                        <BITRATE>317371</BITRATE>
+                        <BITRATE_TYPE>VBR</BITRATE_TYPE>
+                        <EDIT_RATE>48000 1</EDIT_RATE>
+                        <BITS_PER_AUDIO_SAMPLE>0</BITS_PER_AUDIO_SAMPLE>
+                        <AUDIO_ENDIANESS>LITTLE_ENDIAN</AUDIO_ENDIANESS>
+                        <AUDIO_TYPE>UNKNOWN</AUDIO_TYPE>
+                        <AUDIO_LANGUAGE>en</AUDIO_LANGUAGE>
+                        <AUDIO_LANGUAGE_FROM_FILE>en</AUDIO_LANGUAGE_FROM_FILE>
+                        <ORIGIN_AUDIO>0</ORIGIN_AUDIO>
+                    </AUDIO_TRACK>
+                </TRACKS>
+            </FILE>
+        </TECHNICAL>
+    </ASSET>
+</WIP_TECHNICAL>
