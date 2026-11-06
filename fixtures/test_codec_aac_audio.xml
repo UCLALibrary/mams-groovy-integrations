@@ -65,7 +65,7 @@
                         <BITRATE>317371</BITRATE>
                         <BITRATE_TYPE>VBR</BITRATE_TYPE>
                         <EDIT_RATE>48000 1</EDIT_RATE>
-                        <BITS_PER_AUDIO_SAMPLE>0</BITS_PER_AUDIO_SAMPLE>
+                        <BITS_PER_AUDIO_SAMPLE>16</BITS_PER_AUDIO_SAMPLE>
                         <AUDIO_ENDIANESS>LITTLE_ENDIAN</AUDIO_ENDIANESS>
                         <AUDIO_TYPE>UNKNOWN</AUDIO_TYPE>
                         <AUDIO_LANGUAGE>en</AUDIO_LANGUAGE>
