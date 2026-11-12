@@ -1,0 +1,77 @@
+<WIP_TECHNICAL>
+    <ASSET>
+        <OBJECTID></OBJECTID>
+        <MEDIAID>57AFD49D-BE6B-1249-A148-036299BE5035</MEDIAID>
+        <REPOSITORY></REPOSITORY>
+        <TITLE>Pardon Us</TITLE>
+        <TYPE>VIDEO</TYPE>
+        <TECHNICAL>
+            <FILE NAME="PardonUs_R3_M05653_CompPrint_32584_Auto_ProRes4444XQ_Rec709_CineonFilm_2146x1582_24_Mono.mov" FILE_ID="4">
+                <MEDIAFORMAT>279</MEDIAFORMAT>
+                <DISPLAY_NAME>MPEG-4 ProRes</DISPLAY_NAME>
+                <WRAPPER>MPEG-4</WRAPPER>
+                <FILENAME>PardonUs_R3_M05653_CompPrint_32584_Auto_ProRes4444XQ_Rec709_CineonFilm_2146x1582_24_Mono.mov</FILENAME>
+                <FILE_EXTENSION>.mov</FILE_EXTENSION>
+                <SOM>02:59:52:00</SOM>
+                <SOM_IN_FRAMES>259008</SOM_IN_FRAMES>
+                <FIRST_PRESENTATION_TIME>0</FIRST_PRESENTATION_TIME>
+                <INTRINSIC_DURATION>15151</INTRINSIC_DURATION>
+                <INTRINSIC_DURATION_IN_SECONDS>631.292</INTRINSIC_DURATION_IN_SECONDS>
+                <BITRATE>581673442</BITRATE>
+                <EDIT_RATE>24 1</EDIT_RATE>
+                <PHYSICAL_AUDIO_TRACKS>1</PHYSICAL_AUDIO_TRACKS>
+                <ENCODED_DATE>2025-06-06T23:09:55Z</ENCODED_DATE>
+                <MIMETYPE>video/mp4</MIMETYPE>
+                <TRUNCATED>false</TRUNCATED>
+                <TRACKS>
+                    <VIDEO_TRACK>
+                        <ORDER>0</ORDER>
+                        <DEFINITION>2K</DEFINITION>
+                        <VIDEO_CODEC>PRORES_4444_XQ</VIDEO_CODEC>
+                        <CODEC_PROFILE>4444 XQ</CODEC_PROFILE>
+                        <INTERFRAME_COMPRESS>1</INTERFRAME_COMPRESS>
+                        <COLOR_SPACE>YUV</COLOR_SPACE>
+                        <SCAN_TYPE>Progressive</SCAN_TYPE>
+                        <BITRATE>580519292</BITRATE>
+                        <BITRATE_TYPE>VBR</BITRATE_TYPE>
+                        <BITS_PER_PIXEL>12</BITS_PER_PIXEL>
+                        <EDIT_RATE>24 1</EDIT_RATE>
+                        <EDIT_RATE_TYPE>CFR</EDIT_RATE_TYPE>
+                        <ASPECT_RATIO>4:3</ASPECT_RATIO>
+                        <VIDEO_SIZE_WIDTH>2146</VIDEO_SIZE_WIDTH>
+                        <VIDEO_SIZE_HEIGHT>1582</VIDEO_SIZE_HEIGHT>
+                        <VIDEO_DISPLAY_SIZE_WIDTH>2146</VIDEO_DISPLAY_SIZE_WIDTH>
+                        <VIDEO_DISPLAY_SIZE_HEIGHT>1582</VIDEO_DISPLAY_SIZE_HEIGHT>
+                        <VIDEO_DISPLAY_OFFSET_WIDTH>0</VIDEO_DISPLAY_OFFSET_WIDTH>
+                        <VIDEO_DISPLAY_OFFSET_HEIGHT>0</VIDEO_DISPLAY_OFFSET_HEIGHT>
+                        <ROTATION>0</ROTATION>
+                        <SIZE_GOP>1</SIZE_GOP>
+                        <CHROMA_SUBSAMPLING>4:4:4</CHROMA_SUBSAMPLING>
+                        <AFD>0</AFD>
+                        <ORIGIN_VIDEO>0</ORIGIN_VIDEO>
+                        <COLOUR_PRIMARIES>BT.709</COLOUR_PRIMARIES>
+                        <MATRIX_COEFFICIENTS>BT.709</MATRIX_COEFFICIENTS>
+                        <VIDEO_LAYOUT>2D</VIDEO_LAYOUT>
+                        <VR_TYPE>NONE</VR_TYPE>
+                        <DYNAMIC_RANGE>SDR</DYNAMIC_RANGE>
+                        <DYNAMIC_RANGE_FORMAT>CRT</DYNAMIC_RANGE_FORMAT>
+                    </VIDEO_TRACK>
+                    <AUDIO_TRACK>
+                        <ORDER>1</ORDER>
+                        <AUDIO_CODEC>PCM</AUDIO_CODEC>
+                        <AUDIO_CHANNELS_PER_TRACK>1</AUDIO_CHANNELS_PER_TRACK>
+                        <AUDIO_CHANNELS_LAYOUT>C</AUDIO_CHANNELS_LAYOUT>
+                        <BITRATE>1152000</BITRATE>
+                        <BITRATE_TYPE>CBR</BITRATE_TYPE>
+                        <EDIT_RATE>48000 1</EDIT_RATE>
+                        <BITS_PER_AUDIO_SAMPLE>24</BITS_PER_AUDIO_SAMPLE>
+                        <AUDIO_ENDIANESS>LITTLE_ENDIAN</AUDIO_ENDIANESS>
+                        <AUDIO_TYPE>UNKNOWN</AUDIO_TYPE>
+                        <AUDIO_LANGUAGE>und</AUDIO_LANGUAGE>
+                        <ORIGIN_AUDIO>0</ORIGIN_AUDIO>
+                    </AUDIO_TRACK>
+                </TRACKS>
+            </FILE>
+        </TECHNICAL>
+    </ASSET>
+</WIP_TECHNICAL>

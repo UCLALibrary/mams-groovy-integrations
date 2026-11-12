@@ -2,8 +2,8 @@
  * =============================================================================
  * UCLA BATON QC PROFILE LOOKUP KEY
  * =============================================================================
- * Version: v3.0
- * Date: 2026-10-13
+ * Version: v3.1
+ * Date: 2026-11-06
  *
  * Purpose
  * -------
@@ -56,53 +56,63 @@
  * name must also be added or updated in this list.
  */
 def knownBatonProfiles = [
-    'MAMs_QT_7680x4320_4444_24fps_16.9_12bit_PCM_96.16_2.0',
-    'MAMs_QT_5120x3840_422HQ_24fps_4.3_10bit_PCM_96.24_2.0',
-    'MAMs_QT_5120x3840_422HQ_24fps_4.3_10bit_PCM_48.24_2.0',
-    'MAMs_QT_5120x3840_422HQ_24fps_4.3_10bit_MOS',
-    'MAMs_QT_5120x3840_422HQ_20fps_4.3_10bit_MOS',
-    'MAMs_QT_4096x3112_422HQ_24fps_4.3_10bit_PCM_48.24_2.0',
-    'MAMs_QT_4096x3112_422HQ_24fps_4.3_10bit_PCM_48.16_2.0',
-    'MAMs_QT_4096x3112_422HQ_24fps_4.3_10bit_PCM_48.16_1.0',
-    'MAMs_QT_4096x3112_422HQ_2398fps_4.3_10bit_PCM_48.24_2.0',
-    'MAMs_QT_4096x2160_422HQ_24fps_1.89_10bit_PCM_48.24_2.0',
-    'MAMs_QT_2560x1920_422HQ_24fps_4.3_10bit_PCM_96.24_2.0',
-    'MAMs_QT_2560x1920_422HQ_24fps_4.3_10bit_PCM_48.24_2.0',
-    'MAMs_QT_2560x1920_422HQ_24fps_4.3_10bit_MOS',
-    'MAMs_QT_2048x1556_4444_18fps_4.3_12bit_MOS',
-    'MAMs_QT_2048x1556_422HQ_24fps_4.3_10bit_PCM_48.24_2.0',
+    'MAMs_AVI_1440x1080_RGB_25fps_4.3_24bit_MOS',
+    'MAMs_AVI_1440x1080_RGB_25fps_4.3_8bit_MOS',
+    'MAMs_AVI_720x480_DV_2997fps_4.3_8bit_PCM_48.16_2.0',
+    'MAMs_MP4_1920x1080_AVC_2398fps_16.9_8bit_AACLC_48.16_2.0',
+    'MAMs_MP4_2048x1080_H264_2398fps_1.89_8bit_AACLC_48.16_2.0',
+    'MAMs_MXF_1998x1080_JPEG2000_24fps_1.85_12bit_PCM_48.24_6.0',
+    'MAMs_MXF_2048x1080_JPEG2000_24fps_1.9_12bit_PCM_48.24_6.0',
+    'MAMs_MXF_3996x2160_JPEG2000_24fps_1.85_12bit_PCM_48.24_6.0',
+    'MAMs_MXF_4096x2160_JPEG2000_24fps_1.9_12bit_PCM_48.24_6.0',
+    'MAMs_QT_1920x1080_422HQ_2398fps_16.9_10bit_PCM_48.16_1.0',
+    'MAMs_QT_1920x1080_422HQ_2398fps_16.9_10bit_PCM_48.16_2.0',
+    'MAMs_QT_1920x1080_422HQ_24fps_16.9_10bit_MOS',
+    'MAMs_QT_1920x1080_422HQ_24fps_16.9_10bit_PCM_48.24_2.0',
+    'MAMs_QT_1920x1080_422HQ_2997fps_16.9_10bit_PCM_48.16_2.0',
+    'MAMs_QT_1920x1080_422HQ_2997fps_16.9_10bit_PCM_48.24_1.0',
+    'MAMs_QT_1920x1080_422HQ_5994fps_16.9_10bit_PCM_48.16_2.0',
+    'MAMs_QT_1920x1080_422HQ_5994fps_16.9_10bit_PCM_48.24_2.0',
+    'MAMs_QT_1920x1080_4444_24fps_16.9_12bit_PCM_48.24_2.0',
+    'MAMs_QT_2048x1080_422HQ_30fps_1.89_10bit_PCM_48.16_2.0',
+    'MAMs_QT_2048x1485_422HQ_2398fps_1.379_10bit_PCM_48.16_2.0',
+    'MAMs_QT_2048x1485_422HQ_24fps_1.379_10bit_PCM_48.16_2.0',
+    'MAMs_QT_2048x1485_422HQ_24fps_1.379_10bit_PCM_48.24_2.0',
+    'MAMs_QT_2048x1556_422HQ_18fps_4.3_10bit_PCM_48.24_2.0',
     'MAMs_QT_2048x1556_422HQ_24fps_4.3_10bit_PCM_48.16_2.0',
     'MAMs_QT_2048x1556_422HQ_24fps_4.3_10bit_PCM_48.24_1.0',
-    'MAMs_QT_2048x1556_422HQ_18fps_4.3_10bit_PCM_48.24_2.0',
-    'MAMs_QT_2048x1485_422HQ_24fps_1.379_10bit_PCM_48.24_2.0',
-    'MAMs_QT_2048x1485_422HQ_24fps_1.379_10bit_PCM_48.16_2.0',
-    'MAMs_QT_2048x1485_422HQ_2398fps_1.379_10bit_PCM_48.16_2.0',
-    'MAMs_QT_2048x1080_422HQ_30fps_1.89_10bit_PCM_48.16_2.0',
-    'MAMs_AVI_1440x1080_RGB_25fps_4.3_8bit_MOS',
-    'MAMs_AVI_1440x1080_RGB_25fps_4.3_24bit_MOS',
-    'MAMs_QT_1920x1080_4444_24fps_16.9_12bit_PCM_48.24_2.0',
-    'MAMs_QT_1920x1080_422HQ_5994fps_16.9_10bit_PCM_48.16_2.0',
-    'MAMs_QT_1920x1080_422HQ_2997fps_16.9_10bit_PCM_48.24_1.0',
-    'MAMs_QT_1920x1080_422HQ_24fps_16.9_10bit_PCM_48.24_2.0',
-    'MAMs_QT_1920x1080_422HQ_2398fps_16.9_10bit_PCM_48.16_2.0',
-    'MAMs_QT_1920x1080_422HQ_2398fps_16.9_10bit_PCM_48.16_1.0',
-    'MAMs_QT_720x486_422HQ_2398fps_4.3_10bit_PCM_48.24_2.0',
-    'MAMs_QT_720x486_V210_2997fps_4.3_10bit_PCM_48.24_2.0',
-    'MAMs_QT_720x486_2VUY_2997fps_4.3_8bit_PCM_48.24_2.0',
-    'MAMs_QT_720x486_2VUY_2997fps_3.2_8bit_PCM_48.24_2.0',
-    'MAMs_QT_720x486_2VUY_2997fps_3.2_8bit_PCM_48.24_1.0',
+    'MAMs_QT_2048x1556_422HQ_24fps_4.3_10bit_PCM_48.24_2.0',
+    'MAMs_QT_2048x1556_4444_18fps_4.3_12bit_MOS',
+    'MAMs_QT_2146x1582_4444XQ_24fps_4.3_12bit_MOS',
+    'MAMs_QT_2146x1582_4444XQ_24fps_4.3_12bit_PCM_48.24_1.0',
+    'MAMs_QT_2560x1920_422HQ_24fps_4.3_10bit_MOS',
+    'MAMs_QT_2560x1920_422HQ_24fps_4.3_10bit_PCM_48.24_2.0',
+    'MAMs_QT_2560x1920_422HQ_24fps_4.3_10bit_PCM_96.24_2.0',
+    'MAMs_QT_3840x2160_422HQ_2398fps_16.9_10bit_PCM_48.24_6.0',
+    'MAMs_QT_3840x2160_4444_2398fps_16.9_12bit_PCM_48.24_1.0',
+    'MAMs_QT_4096x2160_422HQ_24fps_1.89_10bit_PCM_48.24_2.0',
+    'MAMs_QT_4096x2160_4444_24fps_1.89_12bit_PCM_48.16_2.0',
+    'MAMs_QT_4096x3112_422HQ_2398fps_4.3_10bit_PCM_48.24_2.0',
+    'MAMs_QT_4096x3112_422HQ_24fps_4.3_10bit_PCM_48.16_1.0',
+    'MAMs_QT_4096x3112_422HQ_24fps_4.3_10bit_PCM_48.16_2.0',
+    'MAMs_QT_4096x3112_422HQ_24fps_4.3_10bit_PCM_48.24_2.0',
+    'MAMs_QT_5120x3840_422HQ_20fps_4.3_10bit_MOS',
+    'MAMs_QT_5120x3840_422HQ_24fps_4.3_10bit_MOS',
+    'MAMs_QT_5120x3840_422HQ_24fps_4.3_10bit_PCM_48.24_2.0',
+    'MAMs_QT_5120x3840_422HQ_24fps_4.3_10bit_PCM_96.24_2.0',
     'MAMs_QT_720x480_422HQ_2997fps_4.3_10bit_PCM_48.16_2.0',
-    'MAMs_AVI_720x480_DV_2997fps_4.3_8bit_PCM_48.16_2.0',
     'MAMs_QT_720x480_DV_2997fps_4.3_8bit_PCM_48.16_1.0',
-    'MAMs_WAV_PCM_96.32_2.0',
-    'MAMs_WAV_PCM_96.24_1.0',
+    'MAMs_QT_720x486_2VUY_2997fps_3.2_8bit_PCM_48.24_1.0',
+    'MAMs_QT_720x486_2VUY_2997fps_3.2_8bit_PCM_48.24_2.0',
+    'MAMs_QT_720x486_2VUY_2997fps_4.3_8bit_PCM_48.24_2.0',
+    'MAMs_QT_720x486_422HQ_2398fps_4.3_10bit_PCM_48.24_2.0',
+    'MAMs_QT_720x486_422HQ_2997fps_4.3_10bit_PCM_48.24_1.0',
+    'MAMs_QT_720x486_V210_2997fps_4.3_10bit_PCM_48.24_2.0',
+    'MAMs_QT_7680x4320_4444_24fps_16.9_12bit_PCM_96.16_2.0',
     'MAMs_WAV_PCM_48.24_1.0',
-    'MAMs_MP4_1920x1080_AVC_2398fps_16.9_8bit_AACLC_48.16_2.0',
-    'MAMs_MXF_4096x2160_JPEG2000_24fps_1.9_12bit_PCM_48.24_6.0',
-    'MAMs_MXF_2048x1080_JPEG2000_24fps_1.9_12bit_PCM_48.24_6.0',
-    'MAMs_QT_1920x1080_422HQ_24fps_16.9_10bit_MOS',
-    'MAMs_QT_1920x1080_422HQ_5994fps_16.9_10bit_PCM_48.24_2.0',
-    'MAMs_QT_1920x1080_422HQ_2997fps_16.9_10bit_PCM_48.16_2.0'
+    'MAMs_WAV_PCM_48.24_2.0',
+    'MAMs_WAV_PCM_96.24_1.0',
+    'MAMs_WAV_PCM_96.32_2.0',
 ] as Set
 
 // =============================================================================
@@ -127,7 +137,7 @@ def wrapperMappings = [
 // Keys are upper-case wrapper values; values map a lower-case file extension
 // (no dot) to the container label.
 def wrapperMappingsByFileExt = [
-    'MPEG-4'  : ['mov': 'QT'],
+    'MPEG-4'  : ['mov': 'QT', 'mp4': 'MP4'],
     'MXF-ATOM': ['mxf': 'MXF']
 ]
 
@@ -144,7 +154,16 @@ def videoCodecMappings = [
     '2VUY'         : '2VUY',
     'PRORES_4444'  : '4444',
     'BGR24'        : 'RGB',
-    'DVCPRO'       : 'DV'
+    'DVCPRO'       : 'DV',
+    'PRORES_4444_XQ': '4444XQ'
+]
+
+// --- Audio codec -------------------------------------------------------------
+
+// Keys are values returned by technical analysis.
+// Values are the exact labels used in UCLA's Baton profile names.
+def audioCodecMappings = [
+    'AAC'          : 'AACLC',
 ]
 
 // --- Frame rate --------------------------------------------------------------
@@ -177,7 +196,8 @@ def aspectRatioMappings = [
     '2048:1485': '1.379',
     '131:95'   : '1.379',
     '256:135'  : '1.89',
-    '146:77': '1.89'
+    '146:77': '1.89',
+    '1.85:1'  : '1.85'
 ]
 
 // Container-specific mappings, which take priority over aspectRatioMappings.
@@ -296,6 +316,21 @@ def normaliseVideoCodec = { codec ->
      * will expose the new value so UCLA can add the required mapping.
      */
     return videoCodecMappings.getOrDefault(cleanCodec, cleanCodec)
+}
+
+// =============================================================================
+// AUDIO CODEC NORMALISATION
+// =============================================================================
+
+def normaliseAudioCodec = { codec ->
+    def cleanCodec =
+        codec != null ? codec.trim().toUpperCase() : ''
+
+    /*
+     * An unmapped codec is returned unchanged. The resulting No Match key
+     * will expose the new value so UCLA can add the required mapping.
+     */
+    return audioCodecMappings.getOrDefault(cleanCodec, cleanCodec)
 }
 
 // =============================================================================
@@ -585,7 +620,8 @@ def readAudioComponents = { audioTrack ->
      * For example, an asset containing several mono AUDIO_TRACK elements still
      * generates 1.0 from the first AUDIO_TRACK.
      */
-    def audioCodec = textValue(audioTrack.AUDIO_CODEC).toUpperCase()
+    def sourceAudioCodec = textValue(audioTrack.AUDIO_CODEC)
+    def audioCodec = normaliseAudioCodec(sourceAudioCodec)
     def sampleRate = normaliseSampleRate(textValue(audioTrack.EDIT_RATE))
     def audioBitDepth = textValue(audioTrack.BITS_PER_AUDIO_SAMPLE)
     def channels =
