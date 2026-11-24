@@ -2,8 +2,8 @@
  * =============================================================================
  * UCLA BATON QC PROFILE LOOKUP KEY
  * =============================================================================
- * Version: v3.1
- * Date: 2026-11-06
+ * Version: v3.2
+ * Date: 2026-11-23
  *
  * Purpose
  * -------
@@ -111,6 +111,7 @@ def knownBatonProfiles = [
     'MAMs_QT_7680x4320_4444_24fps_16.9_12bit_PCM_96.16_2.0',
     'MAMs_WAV_PCM_48.24_1.0',
     'MAMs_WAV_PCM_48.24_2.0',
+    'MAMs_WAV_PCM_48.32_1.0',
     'MAMs_WAV_PCM_96.24_1.0',
     'MAMs_WAV_PCM_96.32_2.0',
 ] as Set
@@ -155,7 +156,8 @@ def videoCodecMappings = [
     'PRORES_4444'  : '4444',
     'BGR24'        : 'RGB',
     'DVCPRO'       : 'DV',
-    'PRORES_4444_XQ': '4444XQ'
+    'PRORES_4444_XQ': '4444XQ',
+    'XAVC'         : 'AVC',
 ]
 
 // --- Audio codec -------------------------------------------------------------
